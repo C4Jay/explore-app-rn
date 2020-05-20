@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, FlatList, StyleSheet} from 'react-native';
+import { View, Text, Image, FlatList, StyleSheet, Alert} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import {
@@ -9,15 +9,76 @@ import {
   import { AppLoading } from 'expo';
   import { getDistance } from 'geolib';
 import axios from '../axios-list';
+import * as Permissions from 'expo-permissions';
+import * as Maplocation from 'expo-location';
 
 class TripsScreen extends Component {
 
     state = {
         fontLoaded : false,
-        trips: null
+        trips: null,
+        lat: '',
+        lng: '',
+        donefetching: false
     }
 
+
+    Permissionverify = async () => {
+        const result = await Permissions.askAsync(Permissions.LOCATION)
+        if(result.status != 'granted'){
+            Alert.alert('permission need','need permissions to proceed',
+            [{text: 'OK'}]
+            )
+            return false
+        }
+        return true
+    }
+    
+    
+    locationHandler = async () => {
+        const haspermission = await this.Permissionverify()
+        if(!haspermission) {
+            return
+        }
+
+        // setisfetching(true)
+
+        try {
+            const location = await Maplocation.getCurrentPositionAsync({timeout: 5000})
+            console.log(location)
+            this.setState({
+                lat: location.coords.latitude,
+                lng: location.coords.longitude
+            })
+          /*   props.onpickedlocation({
+                lat: location.coords.latitude,
+                lng: location.coords.longitude
+            })
+ */
+        } catch (err) {
+            Alert.alert(
+                /* 'Couldn`t locate you',
+                'Please try later or pick a location on the map',
+                [{text: 'OK'}] */
+                'Successfully located',
+                'Your current location successfully saved',
+                [{text: 'OK'}]
+            )
+        }
+        // setisfetching(false)
+        this.setState({
+            donefetching: true
+        })
+
+    }
+
+
+
+
+
     componentDidMount () {
+
+        this.locationHandler()
         
             axios.get('/Trips.json')
             .then((response) => {
@@ -77,6 +138,7 @@ class TripsScreen extends Component {
           
  */
 
+
 getDistance(
     { latitude: 51.5103, longitude: 7.49347 },
     { latitude: "51° 31' N", longitude: "7° 28' E" }
@@ -85,31 +147,32 @@ getDistance(
             <View>
 
 
- <FlatList
-        data={this.state.trips}
-        renderItem={({ item }) => {return (
-            <TouchableOpacity>
-                    <View style={styles.tile}>
-                        <Image style={styles.img} source={{uri: item.img}}></Image>
-                        <View style={{flexDirection: 'column'}}>
-                        <View style={{flexDirection: 'row'}}>
-                        <Text style={styles.text}>{item.trip}</Text>
-                        <Text style={styles.distance}>approx. </Text>
-                        <Text>{getDistance(
-    { latitude: item.lat , longitude: item.lng },
-    { latitude: 6.9565151, longitude: 79.9116888 }
+<FlatList
+    data={this.state.trips}
+    renderItem={({ item }) => {return (
+        <TouchableOpacity>
+                <View style={styles.tile}>
+                    <Image style={styles.img} source={{uri: item.img}}></Image>
+                    <View style={{flexDirection: 'column'}}>
+                    <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.text}>{item.trip}</Text>
+                    <Text style={styles.distance}>approx. </Text>
+                    <Text>{getDistance(
+{ latitude: item.lat , longitude: item.lng },
+// { latitude: 6.9565151, longitude: 79.9116888 }
+{ latitude: this.state.lat, longitude: this.state.lng }
 ) / 1000} km
 </Text> 
-                        </View>
-                        <Text style={styles.text1}>{item.region}</Text>
-                        <Text style={styles.text2}>{item.district}</Text>
-                        </View>
-                        
                     </View>
-                </TouchableOpacity>    
-        )}} 
-        keyExtractor={item => item.id}
-      />
+                    <Text style={styles.text1}>{item.region}</Text>
+                    <Text style={styles.text2}>{item.district}</Text>
+                    </View>
+                    
+                </View>
+            </TouchableOpacity>    
+    )}} 
+    keyExtractor={item => item.id}
+  />
 
 
  
@@ -152,7 +215,7 @@ getDistance(
 
 const styles = StyleSheet.create({
     img: {
-        height: 150,
+        height: 200,
         width: '100%',
         borderRadius: 10,
         // marginLeft: 3,
