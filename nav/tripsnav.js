@@ -1,11 +1,13 @@
 import { createAppContainer} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import landingpageScreen from '../screens/landingpageScreen';
+import TripsScreen from '../screens/tripsScreen';
 
 
 
 const Tripsnav = createStackNavigator({
-    Landingpage: landingpageScreen
+    Landingpage: landingpageScreen,
+    Trips: TripsScreen
 },{
     defaultNavigationOptions : {
         headerStyle: {

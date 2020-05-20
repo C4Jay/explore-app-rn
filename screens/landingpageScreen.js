@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ImageBackground, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-class landingpageScreen extends Component {
+class landingpageScreen extends Component  {
     static navigationOptions = {
         title: 'Explore Sri Lanka',
         headerStyle: {
@@ -12,9 +12,7 @@ class landingpageScreen extends Component {
         },
     }
 
-    newbookingHandler () {
-        console.log('new')
-    }
+    
 
     render () {
     return (
@@ -32,22 +30,24 @@ class landingpageScreen extends Component {
         </View> */}
 
 
-<TouchableOpacity onPress={this.newbookingHandler}>
-<View style={{alignItems: 'center', marginTop: '136%'}}>
-<View style={{height: 50, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
-<Text style={{textAlign: 'center'}}>Explore all</Text>
-</View>
+<TouchableOpacity onPress={() => {this.props.navigation.navigate('Trips')}}>
+    <View style={{alignItems: 'center', marginTop: '136%'}}>
+        <View style={{height: 50, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
+            <Text style={{textAlign: 'center'}}>Explore all</Text>
         </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this.newbookingHandler}>
-<View style={{alignItems: 'center', marginTop: 10}}>
-<View style={{height: 50, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
-<Text style={{textAlign: 'center'}}>Explore by region</Text>
-</View>
+    </View>        
+</TouchableOpacity>
+
+
+<TouchableOpacity onPress={() => {this.props.navigation.navigate('Trips')}}>
+    <View style={{alignItems: 'center', marginTop: 10}}>
+        <View style={{height: 50, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
+            <Text style={{textAlign: 'center'}}>Explore by region</Text>
         </View>
-        </TouchableOpacity>
+    </View>
+</TouchableOpacity>
     
-        </ImageBackground>
+</ImageBackground>
     
     )
     }
