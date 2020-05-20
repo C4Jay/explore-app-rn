@@ -150,7 +150,7 @@ getDistance(
 <FlatList
     data={this.state.trips}
     renderItem={({ item }) => {return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Singletrip', {trip: item.trip, region: item.region, district: item.district, img: item.img, img1: item.img1, img2: item.img2, img3: item.img3, description: item.description})}}>
                 <View style={styles.tile}>
                     <Image style={styles.img} source={{uri: item.img}}></Image>
                     <View style={{flexDirection: 'column'}}>
