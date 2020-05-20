@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet} from 'react-native';
+import { View, Text, Image, FlatList, StyleSheet} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import {
@@ -8,11 +8,52 @@ import {
   } from '@expo-google-fonts/pacifico';
   import { AppLoading } from 'expo';
   import { getDistance } from 'geolib';
+import axios from '../axios-list';
 
 class TripsScreen extends Component {
 
     state = {
-        fontLoaded : false
+        fontLoaded : false,
+        trips: null
+    }
+
+    componentDidMount () {
+        
+            axios.get('/Trips.json')
+            .then((response) => {
+           
+                const hotel = []
+                const obj = response.data
+                for(let key in obj) {
+                   
+                  hotel.push({
+                      id: key,
+                      
+                      lat: obj[key].triplat,
+                      lng: obj[key].triplng,
+                      trip: obj[key].triptrip,
+                      region: obj[key].tripregion,
+                      district: obj[key].tripdistrict,
+                      img: obj[key].tripimg,
+                      img1: obj[key].tripimg1,
+                      img2: obj[key].tripimg2,
+                      img3: obj[key].tripimg3,
+                      description: obj[key].tripdescription
+                  })
+                }
+       
+    
+                this.setState({
+                    trips: hotel
+                })
+                console.log(hotel)
+    
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    
+    
     }
 
     
@@ -42,7 +83,39 @@ getDistance(
 );
         return (
             <View>
-                <TouchableOpacity>
+
+
+ <FlatList
+        data={this.state.trips}
+        renderItem={({ item }) => {return (
+            <TouchableOpacity>
+                    <View style={styles.tile}>
+                        <Image style={styles.img} source={{uri: item.img}}></Image>
+                        <View style={{flexDirection: 'column'}}>
+                        <View style={{flexDirection: 'row'}}>
+                        <Text style={styles.text}>{item.trip}</Text>
+                        <Text style={styles.distance}>approx. </Text>
+                        <Text>{getDistance(
+    { latitude: item.lat , longitude: item.lng },
+    { latitude: 6.9565151, longitude: 79.9116888 }
+) / 1000} km
+</Text> 
+                        </View>
+                        <Text style={styles.text1}>{item.region}</Text>
+                        <Text style={styles.text2}>{item.district}</Text>
+                        </View>
+                        
+                    </View>
+                </TouchableOpacity>    
+        )}} 
+        keyExtractor={item => item.id}
+      />
+
+
+ 
+
+
+               {/*  <TouchableOpacity>
                     <View style={styles.tile}>
                         <Image style={styles.img} source={{uri: 'https://images.unsplash.com/photo-1537551080512-fb7dd14fbf90?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'}}></Image>
                         <View style={{flexDirection: 'column'}}>
@@ -71,8 +144,8 @@ getDistance(
                         </View>
                         
                     </View>
-                </TouchableOpacity>
-            </View>
+                </TouchableOpacity> */}
+            </View> 
         )
     }
 }
