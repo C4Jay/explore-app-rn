@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, FlatList, StyleSheet, Alert} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import {
     useFonts,
@@ -11,6 +11,7 @@ import {
 import axios from '../axios-list';
 import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
+import MapScreen from '../component/mapview';
 
 class TripsScreen extends Component {
 
@@ -144,12 +145,14 @@ getDistance(
     { latitude: "51° 31' N", longitude: "7° 28' E" }
 );
         return (
+            <ScrollView>
             <View>
 
 
 <FlatList
     data={this.state.trips}
     renderItem={({ item }) => {return (
+        <View>
         <TouchableOpacity onPress={() => {this.props.navigation.navigate('Singletrip', {trip: item.trip, region: item.region, district: item.district, img: item.img, img1: item.img1, img2: item.img2, img3: item.img3, description: item.description})}}>
                 <View style={styles.tile}>
                     <Image style={styles.img} source={{uri: item.img}}></Image>
@@ -168,8 +171,14 @@ getDistance(
                     <Text style={styles.text2}>{item.district}</Text>
                     </View>
                     
+                    
                 </View>
-            </TouchableOpacity>    
+            </TouchableOpacity>
+            <View style={{height: 300, width: '100%'}}>
+                        <MapScreen lat={item.lat} lng={item.lng} ></MapScreen>
+                    </View>
+              </View>
+                
     )}} 
     keyExtractor={item => item.id}
   />
@@ -209,6 +218,7 @@ getDistance(
                     </View>
                 </TouchableOpacity> */}
             </View> 
+            </ScrollView>
         )
     }
 }
