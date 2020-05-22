@@ -34,7 +34,7 @@ class SingletripScreen extends Component {
                 <View style={styles.description}>
                     <Text style={{color: 'white'}}>{this.props.navigation.getParam('description')}</Text>
                 </View>
-                <Button mode="contained" color="#bbdef0" style={{width: '100%'}} onPress={() => this.props.navigation.navigate('Journey', {lat: this.props.navigation.getParam('lat'), lng: this.props.navigation.getParam('lng')})}>get there</Button>
+                <Button mode="contained" color="#bbdef0" style={{width: '100%'}} onPress={() => this.props.navigation.navigate('Journey', {trip: this.props.navigation.getParam('trip'), keyid: this.props.navigation.getParam('keyid'), lat: this.props.navigation.getParam('lat'), lng: this.props.navigation.getParam('lng')})}>get there</Button>
                 </LinearGradient>
             </View>
             
