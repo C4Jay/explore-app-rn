@@ -153,7 +153,7 @@ getDistance(
     data={this.state.trips}
     renderItem={({ item }) => {return (
         <View>
-        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Singletrip', {trip: item.trip, region: item.region, district: item.district, img: item.img, img1: item.img1, img2: item.img2, img3: item.img3, description: item.description})}}>
+        <TouchableOpacity onPress={() => {this.props.navigation.navigate('Singletrip', {trip: item.trip, region: item.region, district: item.district, img: item.img, img1: item.img1, img2: item.img2, img3: item.img3, description: item.description, lat:item.lat, lng: item.lng})}}>
                 <View style={styles.tile}>
                     <Image style={styles.img} source={{uri: item.img}}></Image>
                     <View style={{flexDirection: 'column'}}>
@@ -174,7 +174,7 @@ getDistance(
                     
                 </View>
             </TouchableOpacity>
-            <View style={{height: 300, width: '100%'}}>
+            <View style={{height: 246, width: '100%'}}>
                         <MapScreen lat={item.lat} lng={item.lng} ></MapScreen>
                     </View>
               </View>
@@ -225,7 +225,7 @@ getDistance(
 
 const styles = StyleSheet.create({
     img: {
-        height: 200,
+        height: 400,
         width: '100%',
         borderRadius: 10,
         // marginLeft: 3,
@@ -238,7 +238,9 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderRadius: 6,
         // backgroundColor: 'rgba(252, 186, 3,0.7)'
-        backgroundColor: 'rgba(134, 245, 44, 0.8)'
+        // backgroundColor: 'rgba(134, 245, 44, 0.1)'
+        // backgroundColor: 'rgba(152, 235, 52, 0.8)'
+        backgroundColor: 'rgba(240, 135, 0,10)'
     },
     text: {
         marginLeft: '3%',
