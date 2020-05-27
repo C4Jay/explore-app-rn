@@ -39,7 +39,7 @@ class landingpageScreen extends Component  {
 </TouchableOpacity>
 
 
-<TouchableOpacity onPress={() => {this.props.navigation.navigate('Trips')}}>
+<TouchableOpacity onPress={() => {this.props.navigation.navigate('Regions')}}>
     <View style={{alignItems: 'center', marginTop: 10}}>
         <View style={{height: 50, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
             <Text style={{textAlign: 'center'}}>Explore by region</Text>

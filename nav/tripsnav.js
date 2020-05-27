@@ -4,6 +4,7 @@ import landingpageScreen from '../screens/landingpageScreen';
 import TripsScreen from '../screens/tripsScreen';
 import SingletripScreen from '../screens/singletripScreen';
 import Journeyscreen from '../screens/journeyScreen';
+import regionScreen from '../screens/regionsScreen';
 
 
 
@@ -11,7 +12,8 @@ const Tripsnav = createStackNavigator({
     Landingpage: landingpageScreen,
     Trips: TripsScreen,
     Singletrip: SingletripScreen,
-    Journey: Journeyscreen
+    Journey: Journeyscreen,
+    Regions: regionScreen
 },{
     defaultNavigationOptions : {
         headerStyle: {

@@ -149,6 +149,7 @@ getDistance(
             <View>
 
 
+
 <FlatList
     data={this.state.trips}
     renderItem={({ item }) => {return (
