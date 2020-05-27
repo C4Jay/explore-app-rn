@@ -5,18 +5,18 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 const regionScreen = props => {
 
     return (
-        <ScrollView>
+        <ScrollView style={{backgroundColor: /* '#756477' */ /* '#efca08' */ '#fdea79'}}>
         <View style={styles.main}>
             <View styles={styles.tile}>
                 <TouchableOpacity onPress = {() => {props.navigation.navigate('Trips', {district: 'Matale'})}}>
-                <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1519576325797-91124298a877.jpg')}>
+                <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1580889240912-c39ecefd3d95.jpg')}>
                 <Text style={styles.text}>MATALE</Text></ImageBackground>
                 {/* <Text>Matale</Text> */}
                 </TouchableOpacity>
             </View>
             <View style={styles.tile}>
                 <TouchableOpacity onPress = {() => {props.navigation.navigate('Trips', {district: 'Badulla'})}}>
-                <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1580889240912-c39ecefd3d95.jpg')}>
+                <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1519576325797-91124298a877.jpg')}>
                 <Text style={styles.text}>BADULLA</Text></ImageBackground>
                 {/* <Text style={style.text}>Badulla</Text> */}
                 </TouchableOpacity>
@@ -35,12 +35,14 @@ const regionScreen = props => {
 
 const styles = StyleSheet.create({
     main: {
+        flex: 1,
         alignItems: 'center',
         marginTop: 30,
-        marginBottom: 30
+        marginBottom: 30,
+        backgroundColor: /* '#756477' */ /* '#efca08' */ '#fdea79'
     },
     tile : {
-        backgroundColor: 'rgba(255,255,255,0.3)',
+        backgroundColor: 'transparent',
         width: 300,
         height: 300,
      
