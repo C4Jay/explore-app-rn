@@ -80,6 +80,46 @@ class TripsScreen extends Component {
     componentDidMount () {
 
         this.locationHandler()
+
+            if(this.props.navigation.getParam('district')) {
+                axios.get('/Trips.json')
+            .then((response) => {
+           
+                const hotel = []
+                const obj = response.data
+                for(let key in obj) {
+                  
+                  if(obj[key].tripdistrict == this.props.navigation.getParam('district') ) {
+                   
+                  hotel.push({
+                      id: key,
+                      
+                      lat: obj[key].triplat,
+                      lng: obj[key].triplng,
+                      trip: obj[key].triptrip,
+                      region: obj[key].tripregion,
+                      district: obj[key].tripdistrict,
+                      img: obj[key].tripimg,
+                      img1: obj[key].tripimg1,
+                      img2: obj[key].tripimg2,
+                      img3: obj[key].tripimg3,
+                      description: obj[key].tripdescription
+                  })
+                }
+       
+    
+                this.setState({
+                    trips: hotel
+                })
+                console.log(hotel)
+
+            }
+    
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            } else {
         
             axios.get('/Trips.json')
             .then((response) => {
@@ -115,7 +155,7 @@ class TripsScreen extends Component {
                 console.log(err)
             })
     
-    
+        }
     }
 
     

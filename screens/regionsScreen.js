@@ -8,21 +8,21 @@ const regionScreen = props => {
         <ScrollView>
         <View style={styles.main}>
             <View styles={styles.tile}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {() => {props.navigation.navigate('Trips', {district: 'Matale'})}}>
                 <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1519576325797-91124298a877.jpg')}>
                 <Text style={styles.text}>MATALE</Text></ImageBackground>
                 {/* <Text>Matale</Text> */}
                 </TouchableOpacity>
             </View>
             <View style={styles.tile}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {() => {props.navigation.navigate('Trips', {district: 'Badulla'})}}>
                 <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1580889240912-c39ecefd3d95.jpg')}>
                 <Text style={styles.text}>BADULLA</Text></ImageBackground>
                 {/* <Text style={style.text}>Badulla</Text> */}
                 </TouchableOpacity>
             </View>
             <View style={styles.tile}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {() => {props.navigation.navigate('Trips', {district: 'Galle'})}}>
                 <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1567498573339-688686a4b5df.jpg')}>
                 <Text style={styles.text}>GALLE</Text></ImageBackground>
                 {/* <Text style={style.text}>Galle</Text> */}
