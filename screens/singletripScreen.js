@@ -118,11 +118,12 @@ SingletripScreen['navigationOptions'] = screenProps => ({
         title="Favorite" 
         iconName="ios-star" 
         onPress={() => {
-            axios.post('/Users.json', {favourites: screenProps.navigation.getParam('trip'), user: screenProps.navigation.getParam('user') /* 'hey' */})
+            axios.post('/Users.json', {favourites: screenProps.navigation.getParam('trip'), user: screenProps.navigation.getParam('user') /* 'hey' */,
+            trip: screenProps.navigation.getParam('trip'), region: screenProps.navigation.getParam('region'), district: screenProps.navigation.getParam('district'), img: screenProps.navigation.getParam('img'), img1: screenProps.navigation.getParam('img1'), img2: screenProps.navigation.getParam('img2'), img3: screenProps.navigation.getParam('img3'), description: screenProps.navigation.getParam('description'), lat:screenProps.navigation.getParam('lat'), lng: screenProps.navigation.getParam('lng')})
         .then(response => {
-            console.log(response)
+            // console.log(response)
         }).catch (err => {
-            console.log(err)
+            // console.log(err)
         })
         } }></Item>
     </HeaderButtons>)}
