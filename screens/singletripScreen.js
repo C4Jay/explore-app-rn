@@ -5,15 +5,47 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import Custombutton from '../component/custombutton.js';
 
+import { Modal } from 'react-native';
+import ImageViewer from 'react-native-image-zoom-viewer';
+import { TouchableOpacity, PinchGestureHandler } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
+import axios from '../axios-list';
+
 var trip = ''
+var take = ''
 class SingletripScreen extends Component {
 
     state = {
-        trip: ''
+        trip: '',
+        img: false,
+        img1: false,
+        img2: false,
+        img3: false,
+    }
+
+    images = [{
+        url: this.props.navigation.getParam('img'),
+        }]
+
+    show () {
+        this.setState({
+            img: true
+        })
     }
 
     favsSet () {
         console.log(this.props.navigation.getParam('trip'))
+        console.log('hey')
+       /*  axios.post('/Users.json', {favourites: this.props.navigation.getParam('keyid')})
+        .then(response => {
+            console.log(response)
+        }).catch (err => {
+            console.log(err)
+        }) */
+    }
+
+    colorSet () {
+        return ('green')
     }
     componentDidMount() {
        console.log(this.props.navigation.getParam('trip'))
@@ -21,19 +53,23 @@ class SingletripScreen extends Component {
     
     }
 
-    
+ 
 
     render() {
+        take = 'this'
         return (
             <ScrollView>
                
             {/* <View style={{backgroundColor: '#32b855'}}> */}
             <View>
-                <Image style={styles.img} source={{uri: this.props.navigation.getParam('img')}}></Image>
+               
+                <Image style={styles.img} source={{uri: this.props.navigation.getParam('img')}}></Image>                
                 <Image style={styles.img} source={{uri: this.props.navigation.getParam('img1')}}></Image>
                 <Image style={styles.img} source={{uri: this.props.navigation.getParam('img2')}}></Image>
                 <Image style={styles.img} source={{uri: this.props.navigation.getParam('img3')}}></Image>
-                <View style={styles.trip}>
+            
+       
+       <View style={styles.trip}>
                     <Text style={{fontSize: 26}}>{this.props.navigation.getParam('trip')}</Text>
                 </View>
                 <LinearGradient
@@ -81,7 +117,14 @@ SingletripScreen['navigationOptions'] = screenProps => ({
         <Item 
         title="Favorite" 
         iconName="ios-star" 
-        onPress={() => {screenProps.favsSet} }></Item>
+        onPress={() => {
+            axios.post('/Users.json', {favourites: screenProps.navigation.getParam('trip') /* 'hey' */})
+        .then(response => {
+            console.log(response)
+        }).catch (err => {
+            console.log(err)
+        })
+        } }></Item>
     </HeaderButtons>)}
 })
     
