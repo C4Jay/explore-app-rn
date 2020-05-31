@@ -162,7 +162,7 @@ class ChatScreen extends Component {
                       return <View key={item.triptrip}> 
                       <TouchableOpacity onPress={() => {
                           this.props.navigation.navigate('Singletrip', {
-                              keyid: item.tripid,trip: item.triptrip, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng})}}>
+                            user: this.props.navigation.getParam('user'), keyid: item.tripid,trip: item.triptrip, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng})}}>
                       <View style={styles.tile}>
                       <Image style={styles.img} source={{uri: item.tripimg}}></Image>
                       <View style={{flexDirection: 'column'}}>
@@ -185,6 +185,7 @@ class ChatScreen extends Component {
                      {/*  <View style={{height: 246, width: '100%'}}>
                                        <MapScreen lat={item.triplat} lng={item.triplng} ></MapScreen>
                                    </View> */}
+                                   
                       </View>
                       
             //           {/* <TouchableOpacity onPress={() => {this.props.navigation.navigate('Singletrip', {keyid: item.tripid,trip: item.triptrip, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng})}}>

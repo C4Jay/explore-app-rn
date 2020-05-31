@@ -118,7 +118,7 @@ SingletripScreen['navigationOptions'] = screenProps => ({
         title="Favorite" 
         iconName="ios-star" 
         onPress={() => {
-            axios.post('/Users.json', {favourites: screenProps.navigation.getParam('trip') /* 'hey' */})
+            axios.post('/Users.json', {favourites: screenProps.navigation.getParam('trip'), user: screenProps.navigation.getParam('user') /* 'hey' */})
         .then(response => {
             console.log(response)
         }).catch (err => {
