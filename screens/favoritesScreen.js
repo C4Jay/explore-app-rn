@@ -13,7 +13,7 @@ import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
 
 
-class ChatScreen extends Component {
+class FavsScreen extends Component {
   
     /* constructor(props) {
         super(props);
@@ -85,29 +85,29 @@ class ChatScreen extends Component {
     async componentDidMount() {
         this.locationHandler()
 
-        if(this.props.navigation.getParam('district')) {
-            axios.get('/Trips.json')
+       
+            axios.get('/Users.json')
         .then((response) => {
        
             const hotel = []
             const obj = response.data
             for(let key in obj) {
               
-              if(obj[key].tripdistrict == this.props.navigation.getParam('district') ) {
+              if(obj[key].user == this.props.navigation.getParam('user') ) {
                
               hotel.push({
                   tripid: key,
                   
-                  triplat: obj[key].triplat,
-                  triplng: obj[key].triplng,
-                  triptrip: obj[key].triptrip,
-                  tripregion: obj[key].tripregion,
-                  tripdistrict: obj[key].tripdistrict,
-                  tripimg: obj[key].tripimg,
-                  tripimg1: obj[key].tripimg1,
-                  tripimg2: obj[key].tripimg2,
-                  tripimg3: obj[key].tripimg3,
-                  tripdescription: obj[key].tripdescription
+                  triplat: obj[key].lat,
+                  triplng: obj[key].lng,
+                  triptrip: obj[key].trip,
+                  tripregion: obj[key].region,
+                  tripdistrict: obj[key].district,
+                  tripimg: obj[key].img,
+                  tripimg1: obj[key].img1,
+                  tripimg2: obj[key].img2,
+                  tripimg3: obj[key].img3,
+                  tripdescription: obj[key].description
               })
             }
    
@@ -123,24 +123,8 @@ class ChatScreen extends Component {
         .catch(err => {
             console.log(err)
         })
-        } else { 
-        
-        try {
-            db.ref('Trips').on('value', snapshot => {
-              let chats = [];
-              snapshot.forEach((snap) => {
-                chats.push(snap.val());
-              });
-              this.setState({ trips: chats });
-              console.log(this.state.trips)
-            });
-          } catch (error) {
-            this.setState({ readError: error.message });
-          }
-        
-        
-        
-    }
+     
+       
 
 }
 
@@ -302,4 +286,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default ChatScreen;
+export default FavsScreen;

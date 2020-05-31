@@ -58,7 +58,7 @@ class landingpageScreen extends Component  {
 </TouchableOpacity>
 
 
-<TouchableOpacity onPress={() => {this.props.navigation.navigate('Regions', {user: 'user1'})}}>
+<TouchableOpacity onPress={() => {this.props.navigation.navigate('Favs', {user: 'user1'})}}>
     <View style={{alignItems: 'center', marginTop: 10}}>
         <View style={{/* flexDirection: 'row', */ height: 80, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
             <Text style={{textAlign: 'center'}}>Favorites</Text>
