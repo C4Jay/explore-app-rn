@@ -8,21 +8,21 @@ const regionScreen = props => {
         <ScrollView style={{backgroundColor: /* '#756477' */ /* '#efca08' */ '#fdea79'}}>
         <View style={styles.main}>
             <View styles={styles.tile}>
-                <TouchableOpacity onPress = {() => {props.navigation.navigate('Trips', {district: 'Matale'})}}>
+                <TouchableOpacity onPress = {() => {props.navigation.navigate('Tripsnew', {district: 'Matale'})}}>
                 <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1580889240912-c39ecefd3d95.jpg')}>
                 <Text style={styles.text}>MATALE</Text></ImageBackground>
                 {/* <Text>Matale</Text> */}
                 </TouchableOpacity>
             </View>
             <View style={styles.tile}>
-                <TouchableOpacity onPress = {() => {props.navigation.navigate('Trips', {district: 'Badulla'})}}>
+                <TouchableOpacity onPress = {() => {props.navigation.navigate('Tripsnew', {district: 'Badulla'})}}>
                 <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1519576325797-91124298a877.jpg')}>
                 <Text style={styles.text}>BADULLA</Text></ImageBackground>
                 {/* <Text style={style.text}>Badulla</Text> */}
                 </TouchableOpacity>
             </View>
             <View style={styles.tile}>
-                <TouchableOpacity onPress = {() => {props.navigation.navigate('Trips', {district: 'Galle'})}}>
+                <TouchableOpacity onPress = {() => {props.navigation.navigate('Tripsnew', {district: 'Galle'})}}>
                 <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1567498573339-688686a4b5df.jpg')}>
                 <Text style={styles.text}>GALLE</Text></ImageBackground>
                 {/* <Text style={style.text}>Galle</Text> */}

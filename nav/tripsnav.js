@@ -5,6 +5,7 @@ import TripsScreen from '../screens/tripsScreen';
 import SingletripScreen from '../screens/singletripScreen';
 import Journeyscreen from '../screens/journeyScreen';
 import regionScreen from '../screens/regionsScreen';
+import ChatScreen from '../screens/tripnewScreen';
 
 
 
@@ -13,7 +14,8 @@ const Tripsnav = createStackNavigator({
     Trips: TripsScreen,
     Singletrip: SingletripScreen,
     Journey: Journeyscreen,
-    Regions: regionScreen
+    Regions: regionScreen,
+    Tripsnew: ChatScreen
 },{
     defaultNavigationOptions : {
         headerStyle: {

@@ -12,12 +12,13 @@ import axios from '../axios-list';
 import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
 import MapScreen from '../component/mapview';
+import { db } from '../configs/db.js';
 
 class TripsScreen extends Component {
 
     state = {
         fontLoaded : false,
-        trips: null,
+        trips: [],
         lat: '',
         lng: '',
         donefetching: false
@@ -76,12 +77,12 @@ class TripsScreen extends Component {
 
 
 
-
+/*
     componentDidMount () {
 
         this.locationHandler()
 
-            if(this.props.navigation.getParam('district')) {
+             if(this.props.navigation.getParam('district')) {
                 axios.get('/Trips.json')
             .then((response) => {
            
@@ -153,10 +154,54 @@ class TripsScreen extends Component {
             })
             .catch(err => {
                 console.log(err)
-            })
+            }) 
+
     
         }
-    }
+
+
+
+    }*/
+
+    // async componentDidMount() {
+        componentDidMount() {
+        // this.locationHandler()
+        // try {
+            db.ref('Trips').once('value')
+            .then((data) => { 
+              const trip = []
+              const obj = data.val()
+              for(let key in obj){
+                  trip.push({
+                    id: key,
+                      
+                    lat: obj[key].triplat,
+                    lng: obj[key].triplng,
+                    trip: obj[key].triptrip,
+                    region: obj[key].tripregion,
+                    district: obj[key].tripdistrict,
+                    img: obj[key].tripimg,
+                    img1: obj[key].tripimg1,
+                    img2: obj[key].tripimg2,
+                    img3: obj[key].tripimg3,
+                    description: obj[key].tripdescription
+                  })
+                }
+                  this.setState({
+                      trips: trip
+                  })
+                  console.log(trip)
+              })
+              .catch(err => {
+                  console.log(err)
+              })
+              
+              
+        //   } catch (error) {
+            // this.setState({ readError: error.message });
+            // console.log(error)
+        //   }
+        }
 
     
 
@@ -180,20 +225,21 @@ class TripsScreen extends Component {
  */
 
 
-getDistance(
-    { latitude: 51.5103, longitude: 7.49347 },
-    { latitude: "51° 31' N", longitude: "7° 28' E" }
-);
+
         return (
-            <ScrollView>
+            
             <View>
+                {/* <ScrollView> */}
+            <View><Text>Hey</Text></View>
 
 
-
-<FlatList
+ <FlatList
+ LisHeaderComponent={
+    <> </>
+    }
     data={this.state.trips}
     renderItem={({ item }) => {return (
-        <View>
+        <View key={item.trip}>
         <TouchableOpacity onPress={() => {this.props.navigation.navigate('Singletrip', {keyid: item.id,trip: item.trip, region: item.region, district: item.district, img: item.img, img1: item.img1, img2: item.img2, img3: item.img3, description: item.description, lat:item.lat, lng: item.lng})}}>
                 <View style={styles.tile}>
                     <Image style={styles.img} source={{uri: item.img}}></Image>
@@ -202,10 +248,10 @@ getDistance(
                     <Text style={styles.text}>{item.trip}</Text>
                     <Text style={styles.distance}>approx. </Text>
                     <Text>{getDistance(
-{ latitude: item.lat , longitude: item.lng },
+{ latitude: item.triplat , longitude: item.triplng },
 // { latitude: 6.9565151, longitude: 79.9116888 }
 { latitude: this.state.lat, longitude: this.state.lng }
-) / 1000} km
+) / 1000} 
 </Text> 
                     </View>
                     <Text style={styles.text1}>{item.region}</Text>
@@ -221,10 +267,43 @@ getDistance(
               </View>
                 
     )}} 
+    
     keyExtractor={item => item.id}
+    ListFooterComponent={
+        <></>
+      }
   />
 
-
+{/*  <View>
+    {this.state.trips.map(item => {
+     return <View>
+     <TouchableOpacity onPress={() => {this.props.navigation.navigate('Singletrip', {keyid: item.id,trip: item.trip, region: item.region, district: item.district, img: item.img, img1: item.img1, img2: item.img2, img3: item.img3, description: item.description, lat:item.lat, lng: item.lng})}}>
+             <View style={styles.tile}>
+                 <Image style={styles.img} source={{uri: item.img}}></Image>
+                 <View style={{flexDirection: 'column'}}>
+                 <View style={{flexDirection: 'row'}}>
+                 <Text style={styles.text}>{item.trip}</Text>
+                 <Text style={styles.distance}>approx. </Text>
+                 <Text>{getDistance(
+{ latitude: item.lat , longitude: item.lng },
+// { latitude: 6.9565151, longitude: 79.9116888 }
+{ latitude: this.state.lat, longitude: this.state.lng }
+) / 1000} km
+</Text> 
+                 </View>
+                 <Text style={styles.text1}>{item.region}</Text>
+                 <Text style={styles.text2}>{item.district}</Text>
+                 </View>
+                 
+                 
+             </View>
+         </TouchableOpacity>
+         <View style={{height: 246, width: '100%'}}>
+                     <MapScreen lat={item.lat} lng={item.lng} ></MapScreen>
+                 </View>
+           </View>
+ })}
+</View> */}
  
 
 
@@ -257,9 +336,10 @@ getDistance(
                         </View>
                         
                     </View>
-                </TouchableOpacity> */}
+                </TouchableOpacity> */} 
+                {/* </ScrollView> */}
             </View> 
-            </ScrollView>
+           
         )
     }
 }

@@ -4,12 +4,20 @@ import { View, ImageBackground, Text, TouchableOpacity, StyleSheet } from 'react
 class landingpageScreen extends Component  {
     static navigationOptions = {
         title: 'Explore Sri Lanka',
-        headerStyle: {
-          backgroundColor: /* '#f4511e' */ Platform.OS === 'android' ? 'yellow' : '#d303fc',
-        },
-        headerTintColor: 'black',
+        // headerStyle: {
+        //   backgroundColor: /* '#f4511e' */ Platform.OS === 'android' ? 'yellow' : '#d303fc',
+        // position: 'absolute', backgroundColor: 'transparent', zIndex: 100, /* top: 0, left: 0, right: 0 */
+        // },
+        headerTransparent: {position: 'absolute',
+        backgroundColor: 'transparent',
+        zIndex: 100,
+        top: 0,
+        left: 0,
+        right: 0},
+        headerTintColor: 'white',
         headerTitleStyle: { 
         },
+    
     }
 
     
@@ -30,7 +38,7 @@ class landingpageScreen extends Component  {
         </View> */}
 
 
-<TouchableOpacity onPress={() => {this.props.navigation.navigate('Trips')}}>
+<TouchableOpacity onPress={() => {this.props.navigation.navigate('Tripsnew')}}>
     <View style={{alignItems: 'center', marginTop: '136%'}}>
         <View style={{height: 50, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
             <Text style={{textAlign: 'center'}}>Explore all</Text>
