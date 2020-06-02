@@ -163,7 +163,7 @@ getMiles (lat, lng) {
     var duration = ''
    
     //  try {
-     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key=AIzaSyCVluAGL43uqSqE0Z5BDcUEMPKnlQbgO28')
+     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key=')
      .then(response => {
          console.log(response)
         //  console.log(response.data.rows[0].elements[0].distance.text)
