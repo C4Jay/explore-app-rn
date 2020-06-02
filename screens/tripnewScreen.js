@@ -7,12 +7,14 @@ import { db } from '../configs/db.js';
 import { getDistance } from 'geolib';
 import MapScreen from '../component/mapview';
 
-import axios from '../axios-list';
-
+// import axios from '../axios-list';
+import axios from 'axios';
 import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
 
 
+var distances = []
+var count = 0
 class ChatScreen extends Component {
   
     /* constructor(props) {
@@ -79,14 +81,17 @@ class ChatScreen extends Component {
         this.setState({
             donefetching: true
         })
+        // this.getMiles(6.8046796,80.7669454)
 
     }
 
     async componentDidMount() {
+
+
         this.locationHandler()
 
         if(this.props.navigation.getParam('district')) {
-            axios.get('/Trips.json')
+            axios.get('https://map-app-rn.firebaseio.com/Trips.json')
         .then((response) => {
        
             const hotel = []
@@ -94,7 +99,10 @@ class ChatScreen extends Component {
             for(let key in obj) {
               
               if(obj[key].tripdistrict == this.props.navigation.getParam('district') ) {
-               
+            //    var distance = this.getMiles(obj[key].triplat,obj[key].triplng)
+            this.getMiles(obj[key].triplat,obj[key].triplng)
+            //   var  number = count
+            //    count++
               hotel.push({
                   tripid: key,
                   
@@ -107,7 +115,9 @@ class ChatScreen extends Component {
                   tripimg1: obj[key].tripimg1,
                   tripimg2: obj[key].tripimg2,
                   tripimg3: obj[key].tripimg3,
-                  tripdescription: obj[key].tripdescription
+                  tripdescription: obj[key].tripdescription,
+                  tripdistance: this.getMiles(obj[key].triplat,obj[key].triplng)
+                //   tripduration: this.getMiles(triplat,triplng)
               })
             }
    
@@ -142,7 +152,44 @@ class ChatScreen extends Component {
         
     }
 
+    
+
 }
+
+     
+getMiles (lat, lng) {
+    var distance = ''
+    var duration = ''
+   
+    //  try {
+     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key=AIzaSyCVluAGL43uqSqE0Z5BDcUEMPKnlQbgO28')
+     .then(response => {
+         console.log(response.data.rows)
+         console.log(response.data.rows[0].elements[0].distance.text)
+         distance = response.data.rows[0].elements[0].distance.text
+         distances.push(distance) 
+      
+         console.log(response.data.rows[0].elements[0].duration.text)
+         duration = response.data.rows[0].elements[0].duration.text
+         console.log(duration)
+         console.log(distances)
+     }).catch(err => {
+         console.log(err)
+     })
+    // }catch {
+    //     console.log(err)
+    // }
+  
+    
+     return (distance)
+    //  console.log(distance)
+    
+
+
+     
+ }
+    
+    
 
     
 
@@ -150,6 +197,7 @@ class ChatScreen extends Component {
 
         
         
+
         return (
         
         //   <View style={{marginTop: 60, flex: 1, width: 368}}>  
@@ -168,13 +216,19 @@ class ChatScreen extends Component {
                       <View style={{flexDirection: 'column'}}>
                       <View style={{flexDirection: 'row'}}>
                       <Text style={styles.text}>{item.triptrip}</Text>
-                      <Text style={styles.distance}>approx. </Text>
-                    <Text>{getDistance(
+                      {/* <Text style={styles.distance}>approx. </Text> */}
+                      <View style={styles.distance}>
+                          <Image style={{height: 30, width: 30}} source={require ('../assets/imgs/km.png')}></Image>
+                          </View>
+                    {/* <Text style={styles.distance1}>{getDistance(
 { latitude: item.triplat , longitude: item.triplng },
 // { latitude: 6.9565151, longitude: 79.9116888 }
 { latitude: this.state.lat, longitude: this.state.lng }
 ) / 1000} km
-</Text>  
+</Text>   */}
+                      {/* <Text style={styles.distance1}>{toString(this.getMiles(item.triplat,item.triplng))}</Text> */}
+                      {/* <Text style={styles.distance1}>{item.tripdistance._65}</Text> */}
+                      <Text style={styles.distance1}>{distances[1]}</Text>
                       </View>
                       <Text style={styles.text1}>{item.tripregion}</Text>
                      <Text style={styles.text2}>{item.tripdistrict}</Text>
@@ -297,7 +351,17 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     distance: {
-        marginLeft: 150
+        position: 'absolute',
+        marginTop: 3,
+    
+        marginLeft: 260,
+     
+    },
+    distance1: {
+        position: 'absolute',
+        marginTop: 3,
+        marginLeft: 300
+     
     }
 
 })

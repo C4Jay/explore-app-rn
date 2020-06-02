@@ -25,6 +25,30 @@ export default class Journeyscreen extends Component {
       lat = 6.8768151,
       lng = 81.0608465
     }
+    if(this.trip == 'Adam\'s Peak') {
+      lat = 6.8093454,
+      lng = 80.4994057
+    }
+    if(this.trip == 'Mirissa Beach') {
+      lat = 5.9493634,
+      lng = 80.4558128
+    }
+    if(this.trip == 'Arugam Bay Beach') {
+      lat = 6.8393788,
+      lng = 81.8327629
+    }
+    if(this.trip == 'Horton Plains National Park') {
+      lat = 6.8046796,
+      lng = 80.7669454
+    }
+    if(this.trip == 'Sinharaja Rain Forest') {
+      lat = 6.401205,
+      lng = 80.5102207
+    }
+    if(this.trip == 'Rawana Falls') {
+      lat = 6.8411694,
+      lng = 81.0550963
+    }
 
     /* console.log(this.props.navigation.getParam('lat'),this.props.navigation.getParam('lng'))
     lat = this.props.navigation.getParam('lat')

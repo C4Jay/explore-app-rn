@@ -152,7 +152,12 @@ class FavsScreen extends Component {
                       <View style={{flexDirection: 'column'}}>
                       <View style={{flexDirection: 'row'}}>
                       <Text style={styles.text}>{item.triptrip}</Text>
-                      <Text style={styles.distance}>approx. </Text>
+                      {/* <Text style={styles.distance}>approx. </Text> */}
+
+                      <View style={styles.distance}>
+                          <Image style={{height: 30, width: 30}} source={require ('../assets/imgs/km.png')}></Image>
+                          </View>
+
                     <Text>{getDistance(
 { latitude: item.triplat , longitude: item.triplng },
 // { latitude: 6.9565151, longitude: 79.9116888 }
@@ -281,6 +286,7 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     distance: {
+        marginTop: 3,
         marginLeft: 150
     }
 
