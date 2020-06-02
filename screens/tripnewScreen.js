@@ -11,7 +11,7 @@ import MapScreen from '../component/mapview';
 import axios from 'axios';
 import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
-
+import { googleapiKeyworking } from '../vars/env.js';
 
 var distances = []
 var count = 0
@@ -162,7 +162,7 @@ getMiles (lat, lng) {
     var duration = ''
    
     //  try {
-     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key=AIzaSyCVluAGL43uqSqE0Z5BDcUEMPKnlQbgO28')
+     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key='+ googleapiKeyworking)
      .then(response => {
          console.log(response.data.rows)
          console.log(response.data.rows[0].elements[0].distance.text)
@@ -228,7 +228,7 @@ getMiles (lat, lng) {
 </Text>   */}
                       {/* <Text style={styles.distance1}>{toString(this.getMiles(item.triplat,item.triplng))}</Text> */}
                       {/* <Text style={styles.distance1}>{item.tripdistance._65}</Text> */}
-                      <Text style={styles.distance1}>{distances[1]}</Text>
+                      <Text style={styles.distance1}>{distances[0]}</Text>
                       </View>
                       <Text style={styles.text1}>{item.tripregion}</Text>
                      <Text style={styles.text2}>{item.tripdistrict}</Text>
