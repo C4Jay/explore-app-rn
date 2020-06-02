@@ -11,10 +11,11 @@ import MapScreen from '../component/mapview';
 import axios from 'axios';
 import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
-import env from '../vars/env';
+import env from '../keys/env';
 
 var distances = []
 var count = 0
+var distanceglo = ''
 class ChatScreen extends Component {
   
     /* constructor(props) {
@@ -85,24 +86,32 @@ class ChatScreen extends Component {
 
     }
 
+    componentWillUnmount() {
+        for(let i in distances) {
+            i = 0
+        }
+    }
+
     async componentDidMount() {
 
 
         await this.locationHandler()
         
-        if(this.props.navigation.getParam('district') || this.props.navigation.getParam('user')) {
+        if(this.props.navigation.getParam('district') ) {
             axios.get('https://map-app-rn.firebaseio.com/Trips.json')
         .then((response) => {
        
             const hotel = []
             const obj = response.data
+            var counter = 0
             for(let key in obj) {
               
               if(obj[key].tripdistrict == this.props.navigation.getParam('district') ) {
             //    var distance = this.getMiles(obj[key].triplat,obj[key].triplng)
-            this.getMiles(obj[key].triplat,obj[key].triplng)
+          this.getMiles(obj[key].triplat,obj[key].triplng)
             //   var  number = count
             //    count++
+            counter++
               hotel.push({
                   tripid: key,
                   
@@ -116,8 +125,10 @@ class ChatScreen extends Component {
                   tripimg2: obj[key].tripimg2,
                   tripimg3: obj[key].tripimg3,
                   tripdescription: obj[key].tripdescription,
-                  tripdistance: this.getMiles(obj[key].triplat,obj[key].triplng)
+                  tripdistance: distanceglo,
                 //   tripduration: this.getMiles(triplat,triplng)
+                tripnumber: counter-1
+
               })
             }
    
@@ -137,17 +148,68 @@ class ChatScreen extends Component {
     else { 
         
         try {
-            db.ref('Trips').on('value', snapshot => {
-              let chats = [];
-              snapshot.forEach((snap) => {
-                chats.push(snap.val());
-              });
-              this.setState({ trips: chats });
-              console.log(this.state.trips)
-            });
-          } catch (error) {
-            this.setState({ readError: error.message });
-          }
+        //     db.ref('Trips').on('value', snapshot => {
+        //       let chats = [];
+        //       snapshot.forEach((snap) => {
+        //         chats.push(snap.val());
+        //       });
+        //       this.setState({ trips: chats });
+        //       console.log(this.state.trips)
+        //     });
+        //   } catch (error) {
+        //     this.setState({ readError: error.message });
+        //   }
+
+        axios.get('https://map-app-rn.firebaseio.com/Trips.json')
+        .then((response) => {
+       
+            const hotel = []
+            const obj = response.data
+            var counter = 0
+            for(let key in obj) {
+              
+            //   if(obj[key].tripdistrict == this.props.navigation.getParam('district') ) {
+            //    var distance = this.getMiles(obj[key].triplat,obj[key].triplng)
+          this.getMiles(obj[key].triplat,obj[key].triplng)
+            //   var  number = count
+            //    count++
+            counter++
+              hotel.push({
+                  tripid: key,
+                  
+                  triplat: obj[key].triplat,
+                  triplng: obj[key].triplng,
+                  triptrip: obj[key].triptrip,
+                  tripregion: obj[key].tripregion,
+                  tripdistrict: obj[key].tripdistrict,
+                  tripimg: obj[key].tripimg,
+                  tripimg1: obj[key].tripimg1,
+                  tripimg2: obj[key].tripimg2,
+                  tripimg3: obj[key].tripimg3,
+                  tripdescription: obj[key].tripdescription,
+                  tripdistance: distanceglo,
+                //   tripduration: this.getMiles(triplat,triplng)
+                tripnumber: counter-1
+
+              })
+            }
+   
+
+            this.setState({
+                trips: hotel
+            })
+            console.log(hotel)
+
+        // }
+
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }catch {
+        console.log(err)
+    }
+
         
         
         
@@ -163,27 +225,28 @@ getMiles (lat, lng) {
     var duration = ''
    
     //  try {
-     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key=')
+     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key='+ env.googleapiKeyworking)
      .then(response => {
-         console.log(response)
-        //  console.log(response.data.rows[0].elements[0].distance.text)
-        //  distance = response.data.rows[0].elements[0].distance.text
-        //  distances.push(distance) 
-      
+         console.log(response.data.rows)
+         console.log(response.data.rows[0].elements[0].distance.text)
+         distance = response.data.rows[0].elements[0].distance.value
+         distances.push(distance/1000) 
+         console.log('distance',distance/1000)
+         distanceglo = distance
         //  console.log(response.data.rows[0].elements[0].duration.text)
         //  duration = response.data.rows[0].elements[0].duration.text
         //  console.log(duration)
-        //  console.log(distances)
+         console.log('distances',distances)
      }).catch(err => {
          console.log(err)
      })
     // }catch {
     //     console.log(err)
     // }
-  
+    return (distance)
     
-     return (distance)
-    //  console.log(distance)
+
+     
     
 
 
@@ -228,8 +291,9 @@ getMiles (lat, lng) {
 ) / 1000} km
 </Text>   */}
                       {/* <Text style={styles.distance1}>{toString(this.getMiles(item.triplat,item.triplng))}</Text> */}
-                      {/* <Text style={styles.distance1}>{item.tripdistance._65}</Text> */}
-                      <Text style={styles.distance1}>{distances[0]}</Text>
+                      <Text style={styles.distance1}>{distances[item.tripnumber]} kms</Text>
+                      {/* <Text style={styles.distance1}>{distances[0]}</Text> */}
+                      {/* <Text style={styles.distance1}>{item.tripdistance}</Text> */}
                       </View>
                       <Text style={styles.text1}>{item.tripregion}</Text>
                      <Text style={styles.text2}>{item.tripdistrict}</Text>
