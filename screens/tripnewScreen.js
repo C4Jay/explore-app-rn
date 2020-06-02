@@ -90,7 +90,7 @@ class ChatScreen extends Component {
 
         await this.locationHandler()
         
-        if(this.props.navigation.getParam('district')) {
+        if(this.props.navigation.getParam('district') || this.props.navigation.getParam('user')) {
             axios.get('https://map-app-rn.firebaseio.com/Trips.json')
         .then((response) => {
        
