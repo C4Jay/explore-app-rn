@@ -9,7 +9,6 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
-
+vars/**/*
 # macOS
 .DS_Store
-vars/**/*

@@ -11,7 +11,7 @@ import MapScreen from '../component/mapview';
 import axios from 'axios';
 import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
-import { googleapiKeyworking } from '../vars/env.js';
+import env from '../vars/env';
 
 var distances = []
 var count = 0
@@ -88,8 +88,8 @@ class ChatScreen extends Component {
     async componentDidMount() {
 
 
-        this.locationHandler()
-
+        await this.locationHandler()
+        
         if(this.props.navigation.getParam('district')) {
             axios.get('https://map-app-rn.firebaseio.com/Trips.json')
         .then((response) => {
@@ -133,7 +133,8 @@ class ChatScreen extends Component {
         .catch(err => {
             console.log(err)
         })
-        } else { 
+        } 
+    else { 
         
         try {
             db.ref('Trips').on('value', snapshot => {
@@ -162,17 +163,17 @@ getMiles (lat, lng) {
     var duration = ''
    
     //  try {
-     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key='+ googleapiKeyworking)
+     axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key=AIzaSyCVluAGL43uqSqE0Z5BDcUEMPKnlQbgO28')
      .then(response => {
-         console.log(response.data.rows)
-         console.log(response.data.rows[0].elements[0].distance.text)
-         distance = response.data.rows[0].elements[0].distance.text
-         distances.push(distance) 
+         console.log(response)
+        //  console.log(response.data.rows[0].elements[0].distance.text)
+        //  distance = response.data.rows[0].elements[0].distance.text
+        //  distances.push(distance) 
       
-         console.log(response.data.rows[0].elements[0].duration.text)
-         duration = response.data.rows[0].elements[0].duration.text
-         console.log(duration)
-         console.log(distances)
+        //  console.log(response.data.rows[0].elements[0].duration.text)
+        //  duration = response.data.rows[0].elements[0].duration.text
+        //  console.log(duration)
+        //  console.log(distances)
      }).catch(err => {
          console.log(err)
      })
