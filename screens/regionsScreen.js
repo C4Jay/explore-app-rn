@@ -49,6 +49,20 @@ const regionScreen = props => {
                 {/* <Text style={style.text}>Galle</Text> */}
                 </TouchableOpacity>
             </View>
+            <View style={styles.tile}>
+                <TouchableOpacity onPress = {() => {props.navigation.navigate('Tripsnew', {district: 'Polonnaruwa', user: props.navigation.getParam('user')})}}>
+                <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1580889242438-b286d3a752a1.jpg')}>
+                <Text style={styles.text}>POLONNARUWA</Text></ImageBackground>
+                {/* <Text style={style.text}>Galle</Text> */}
+                </TouchableOpacity>
+            </View>
+            <View style={styles.tile}>
+                <TouchableOpacity onPress = {() => {props.navigation.navigate('Tripsnew', {district: 'Kegalle', user: props.navigation.getParam('user')})}}>
+                <ImageBackground style={styles.img} source={require ('../assets/imgs/photo-1533484482814-3fe2d922be89.jpg')}>
+                <Text style={styles.text}>KEGALLE</Text></ImageBackground>
+                {/* <Text style={style.text}>Galle</Text> */}
+                </TouchableOpacity>
+            </View>
             
         </View>
         </ScrollView>

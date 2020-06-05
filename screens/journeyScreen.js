@@ -49,6 +49,18 @@ export default class Journeyscreen extends Component {
       lat = 6.8411694,
       lng = 81.0550963
     }
+    if(this.trip == 'Ancient City of Polonnaruwa') {
+      lat = 7.9660749,
+      lng = 81.0049395
+    }
+    if(this.trip == 'Dambulla cave temple') {
+      lat = 7.856611728668213,
+      lng = 80.64851379394531
+    }
+    if(this.trip == 'Pinnawala Elephant Orphanage') {
+      lat = 7.300516128540039,
+      lng = 80.38717651367188
+    }
 
     /* console.log(this.props.navigation.getParam('lat'),this.props.navigation.getParam('lng'))
     lat = this.props.navigation.getParam('lat')

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { db } from '../configs/db.js';
 // import axios from '../axios-chat.js';
@@ -12,6 +12,7 @@ import axios from 'axios';
 import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
 import env from '../keys/env';
+import Emoji from 'react-native-emoji';
 
 var distances = []
 var count = 0
@@ -62,11 +63,19 @@ class ChatScreen extends Component {
             this.setState({
                 lat: location.coords.latitude,
                 lng: location.coords.longitude
-            })
+            }, () => {Alert.alert(
+                /* 'Couldn`t locate you',
+                'Please try later or pick a location on the map',
+                [{text: 'OK'}] */
+                'Please note',
+                'distances shown in this list is an approximate value based on your current location and is not 100% correct 😊, For directions go to each trip. \nThank You 😇',
+                [{text: 'OK'}]
+            )})
           /*   props.onpickedlocation({
                 lat: location.coords.latitude,
                 lng: location.coords.longitude
             })
+
  */
         } catch (err) {
             Alert.alert(
@@ -87,9 +96,7 @@ class ChatScreen extends Component {
     }
 
     componentWillUnmount() {
-        for(let i in distances) {
-            i = 0
-        }
+        distances = []
     }
 
     async componentDidMount() {
@@ -108,7 +115,7 @@ class ChatScreen extends Component {
               
               if(obj[key].tripdistrict == this.props.navigation.getParam('district') ) {
             //    var distance = this.getMiles(obj[key].triplat,obj[key].triplng)
-          this.getMiles(obj[key].triplat,obj[key].triplng)
+        //   this.getMiles(obj[key].triplat,obj[key].triplng)
             //   var  number = count
             //    count++
             counter++
@@ -127,8 +134,13 @@ class ChatScreen extends Component {
                   tripdescription: obj[key].tripdescription,
                   tripdistance: distanceglo,
                 //   tripduration: this.getMiles(triplat,triplng)
-                tripnumber: counter-1
-
+                tripnumber: counter-1,
+              /*   cold: obj[key].cold,
+                hot: obj[key].hot,
+                monk: obj[key].monk,
+                ele: obj[key].ele,
+                rainy: obj[key].rainy
+ */
               })
             }
    
@@ -147,7 +159,7 @@ class ChatScreen extends Component {
         } 
     else { 
         
-        try {
+       try {
         //     db.ref('Trips').on('value', snapshot => {
         //       let chats = [];
         //       snapshot.forEach((snap) => {
@@ -168,12 +180,17 @@ class ChatScreen extends Component {
             var counter = 0
             for(let key in obj) {
               
-            //   if(obj[key].tripdistrict == this.props.navigation.getParam('district') ) {
-            //    var distance = this.getMiles(obj[key].triplat,obj[key].triplng)
-          this.getMiles(obj[key].triplat,obj[key].triplng)
-            //   var  number = count
-            //    count++
-            counter++
+            // this.getMiles(obj[key].triplat,obj[key].triplng)
+           
+      
+
+    
+  
+          
+          
+          
+            // counter++
+            
               hotel.push({
                   tripid: key,
                   
@@ -187,7 +204,11 @@ class ChatScreen extends Component {
                   tripimg2: obj[key].tripimg2,
                   tripimg3: obj[key].tripimg3,
                   tripdescription: obj[key].tripdescription,
-                  tripdistance: distanceglo,
+
+                //   tripdistance: distances[counter-1],
+
+                // tripdistance: distancetrip,
+
                 //   tripduration: this.getMiles(triplat,triplng)
                 tripnumber: counter-1
 
@@ -199,6 +220,7 @@ class ChatScreen extends Component {
                 trips: hotel
             })
             console.log(hotel)
+            console.log(distances)
 
         // }
 
@@ -228,15 +250,15 @@ getMiles (lat, lng) {
      axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='+ lat +',' + lng + '&destinations='+ this.state.lat +',' + this.state.lng + '&key='+ env.googleapiKeyworking)
      .then(response => {
          console.log(response.data.rows)
-         console.log(response.data.rows[0].elements[0].distance.text)
+        //  console.log(response.data.rows[0].elements[0].distance.text)
          distance = response.data.rows[0].elements[0].distance.value
          distances.push(distance/1000) 
-         console.log('distance',distance/1000)
-         distanceglo = distance
+        //  console.log('distance',distance/1000)
+        //  distanceglo = distance
         //  console.log(response.data.rows[0].elements[0].duration.text)
         //  duration = response.data.rows[0].elements[0].duration.text
         //  console.log(duration)
-         console.log('distances',distances)
+        //  console.log('distances',distances)
      }).catch(err => {
          console.log(err)
      })
@@ -283,20 +305,41 @@ getMiles (lat, lng) {
                       {/* <Text style={styles.distance}>approx. </Text> */}
                       <View style={styles.distance}>
                           <Image style={{height: 30, width: 30}} source={require ('../assets/imgs/km.png')}></Image>
-                          </View>
-                    {/* <Text style={styles.distance1}>{getDistance(
+                          </View>{item.tripdistrict == 'Badulla' ?
+                    <Text style={styles.distance1}>{getDistance(
 { latitude: item.triplat , longitude: item.triplng },
 // { latitude: 6.9565151, longitude: 79.9116888 }
 { latitude: this.state.lat, longitude: this.state.lng }
-) / 1000} km
-</Text>   */}
+) / 1000 + 60 + 10}  km
+                          </Text>  : <Text style={styles.distance1}>{getDistance(
+{ latitude: item.triplat , longitude: item.triplng },
+// { latitude: 6.9565151, longitude: 79.9116888 }
+{ latitude: this.state.lat, longitude: this.state.lng }
+) / 1000 + 10}  km</Text> }
                       {/* <Text style={styles.distance1}>{toString(this.getMiles(item.triplat,item.triplng))}</Text> */}
-                      <Text style={styles.distance1}>{distances[item.tripnumber]} kms</Text>
+                     
+                      {/* <Text style={styles.distance1}>{distances[item.tripnumber]} kms</Text> */}
+                     
                       {/* <Text style={styles.distance1}>{distances[0]}</Text> */}
                       {/* <Text style={styles.distance1}>{item.tripdistance}</Text> */}
                       </View>
                       <Text style={styles.text1}>{item.tripregion}</Text>
                      <Text style={styles.text2}>{item.tripdistrict}</Text>
+
+                     <View style={{alignItems: 'center'}}>
+                     <View style={{alignItems: 'center', /* flexFlow: 'space-between' ,marginHorizontal: '25%', */ alignContent: 'center', textAlign: 'center', marginTop: 6, marginBottom: 6, flexDirection: 'row'}}>
+
+                     {!item.hot ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f975.png'}}></Image> : null }
+                     {!item.cold ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f976.png'}}></Image> : null }
+                     {!item.rainy ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f327-fe0f.png'}}></Image> : null }
+                     {!item.ele ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f418.png'}}></Image> : null }
+                     {!item.monk ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f412.png'}}></Image> : null }
+                     {!item.statu ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f5ff.png'}}></Image> : null }
+                     {!item.tiger ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f406.png'}}></Image> : null }
+                 
+                     
+                     </View>
+                     </View>
                       </View>
                       
                       </View>
