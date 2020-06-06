@@ -34,7 +34,8 @@ class ChatScreen extends Component {
         readError: null,
         trips: [],
         lat: '',
-        lng: ''
+        lng: '',
+        tripsfinl: []
     }
 
     Permissionverify = async () => {
@@ -140,7 +141,18 @@ class ChatScreen extends Component {
                 monk: obj[key].monk,
                 ele: obj[key].ele,
                 rainy: obj[key].rainy
- */
+                */
+
+               hot: obj[key].hot,
+               cold:obj[key].cold,
+               rainy: obj[key].rainy,
+               monk: obj[key].monk,
+               ele: obj[key].ele,
+               tiger: obj[key].tiger,
+               ocean: obj[key].ocean,
+               statu: obj[key].statu,
+               hike: obj[key].hike,
+               camp: obj[key].camp,
               })
             }
    
@@ -204,6 +216,21 @@ class ChatScreen extends Component {
                   tripimg2: obj[key].tripimg2,
                   tripimg3: obj[key].tripimg3,
                   tripdescription: obj[key].tripdescription,
+                  hot: obj[key].hot,
+      cold:obj[key].cold,
+      rainy: obj[key].rainy,
+      monk: obj[key].monk,
+      ele: obj[key].ele,
+      tiger: obj[key].tiger,
+      ocean: obj[key].ocean,
+      statu: obj[key].statu,
+      hike: obj[key].hike,
+      camp: obj[key].camp,
+     /*  tripdistance: getDistance(
+        { latitude: obj[key].lat , longitude: obj[key].lng },
+        // { latitude: 6.9565151, longitude: 79.9116888 }
+        { latitude: this.state.lat, longitude: this.state.lng }
+        ), */
 
                 //   tripdistance: distances[counter-1],
 
@@ -217,10 +244,29 @@ class ChatScreen extends Component {
    
 
             this.setState({
-                trips: hotel
+                trips: hotel,
+                
+
+               
+
+            })
+
+            function compare( a, b ) {
+                if ( a.tripdistance < b.tripdistance ){
+                  return -1;
+                }
+                if ( a.tripdistance > b.tripdistance ){
+                  return 1;
+                }
+                return 0;
+              }
+            var tripslist = this.state.trips.sort(compare)
+            this.setState({
+                tripsfinl: this.state.trips
             })
             console.log(hotel)
             console.log(distances)
+            
 
         // }
 
@@ -329,14 +375,17 @@ getMiles (lat, lng) {
                      <View style={{alignItems: 'center'}}>
                      <View style={{alignItems: 'center', /* flexFlow: 'space-between' ,marginHorizontal: '25%', */ alignContent: 'center', textAlign: 'center', marginTop: 6, marginBottom: 6, flexDirection: 'row'}}>
 
-                     {!item.hot ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f975.png'}}></Image> : null }
-                     {!item.cold ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f976.png'}}></Image> : null }
-                     {!item.rainy ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f327-fe0f.png'}}></Image> : null }
-                     {!item.ele ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f418.png'}}></Image> : null }
-                     {!item.monk ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f412.png'}}></Image> : null }
-                     {!item.statu ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f5ff.png'}}></Image> : null }
-                     {!item.tiger ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f406.png'}}></Image> : null }
-                 
+                     {item.hot ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f975.png'}}></Image> : null }
+                     {item.cold ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f976.png'}}></Image> : null }
+                     {item.rainy ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f327-fe0f.png'}}></Image> : null }
+                     {item.ele ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f418.png'}}></Image> : null }
+                     {item.monk ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f412.png'}}></Image> : null }
+                     {item.statu ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f5ff.png'}}></Image> : null }
+                     {item.tiger ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f406.png'}}></Image> : null }
+                     {item.ocean ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-facebook-64/1f30a.png'}}></Image> : null }
+                     {item.hike ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-google-64/1f9d7.png'}}></Image> : null }
+                     {item.camp ? <Image style={{height: 30, width: 30}} source={{uri: 'https://unicodey.com/emoji-data/img-twitter-64/1f3d5-fe0f.png'}}></Image> : null }
+                         
                      
                      </View>
                      </View>
