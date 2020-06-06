@@ -119,7 +119,17 @@ SingletripScreen['navigationOptions'] = screenProps => ({
         iconName="ios-star" 
         onPress={() => {
             axios.post('/Users.json', {favourites: screenProps.navigation.getParam('trip'), user: screenProps.navigation.getParam('user') /* 'hey' */,
-            trip: screenProps.navigation.getParam('trip'), region: screenProps.navigation.getParam('region'), district: screenProps.navigation.getParam('district'), img: screenProps.navigation.getParam('img'), img1: screenProps.navigation.getParam('img1'), img2: screenProps.navigation.getParam('img2'), img3: screenProps.navigation.getParam('img3'), description: screenProps.navigation.getParam('description'), lat:screenProps.navigation.getParam('lat'), lng: screenProps.navigation.getParam('lng')})
+            trip: screenProps.navigation.getParam('trip'), region: screenProps.navigation.getParam('region'), district: screenProps.navigation.getParam('district'), img: screenProps.navigation.getParam('img'), img1: screenProps.navigation.getParam('img1'), img2: screenProps.navigation.getParam('img2'), img3: screenProps.navigation.getParam('img3'), description: screenProps.navigation.getParam('description'), lat:screenProps.navigation.getParam('lat'), lng: screenProps.navigation.getParam('lng'),
+            hot: screenProps.navigation.getParam('hot'),
+            cold: screenProps.navigation.getParam('cold'),
+            monk: screenProps.navigation.getParam('monk'),
+            ele: screenProps.navigation.getParam('ele'),
+            rainy: screenProps.navigation.getParam('rainy'),
+            ocean: screenProps.navigation.getParam('ocean'),
+            camp: screenProps.navigation.getParam('camp'),
+            tiger: screenProps.navigation.getParam('tiger'),            
+            statu: screenProps.navigation.getParam('statu'),
+            hike: screenProps.navigation.getParam('hike'),})
         .then(response => {
             // console.log(response)
         }).catch (err => {

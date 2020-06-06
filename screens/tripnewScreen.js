@@ -342,7 +342,17 @@ getMiles (lat, lng) {
                       return <View key={item.triptrip}> 
                       <TouchableOpacity onPress={() => {
                           this.props.navigation.navigate('Singletrip', {
-                            user: this.props.navigation.getParam('user'), keyid: item.tripid,trip: item.triptrip, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng})}}>
+                            user: this.props.navigation.getParam('user'), keyid: item.tripid,trip: item.triptrip, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,
+                            hot: item.hot,
+      cold:item.cold,
+      rainy: item.rainy,
+      monk: item.monk,
+      ele: item.ele,
+      tiger: item.tiger,
+      ocean: item.ocean,
+      statu: item.statu,
+      hike: item.hike,
+      camp: item.camp,})}}>
                       <View style={styles.tile}>
                       <Image style={styles.img} source={{uri: item.tripimg}}></Image>
                       <View style={{flexDirection: 'column'}}>
