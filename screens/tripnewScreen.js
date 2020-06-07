@@ -83,8 +83,8 @@ class ChatScreen extends Component {
                 /* 'Couldn`t locate you',
                 'Please try later or pick a location on the map',
                 [{text: 'OK'}] */
-                'Successfully located',
-                'Your current location successfully saved',
+                'Something happened',
+                'We couldn\'t locate you please go back and come again',
                 [{text: 'OK'}]
             )
         }
@@ -472,6 +472,7 @@ const styles = StyleSheet.create({
   tile2: {
     // height: 35,
     backgroundColor: '#f2cee7',
+    // backgroundColor: '#42cbf5',
     width: 218,
     marginTop: 1,
     marginBottom: 1,
@@ -500,6 +501,8 @@ const styles = StyleSheet.create({
         // backgroundColor: 'rgba(134, 245, 44, 0.1)'
         // backgroundColor: 'rgba(152, 235, 52, 0.8)'
         backgroundColor: 'rgba(240, 135, 0,10)'
+            // backgroundColor: '#42cbf5',
+            // backgroundColor: '#2bcbfc'
     },
 
     text: {

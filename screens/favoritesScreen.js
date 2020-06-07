@@ -335,8 +335,17 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     distance: {
+        position: 'absolute',
         marginTop: 3,
-        marginLeft: 150
+    
+        marginLeft: 260,
+     
+    },
+    distance1: {
+        position: 'absolute',
+        marginTop: 3,
+        marginLeft: 300
+     
     }
 
 })
