@@ -4,7 +4,7 @@ import {Icon} from 'react-native-vector-icons';
 
 class landingpageScreen extends Component  {
     static navigationOptions = {
-        title: 'Explore Sri Lanka',
+        // title: 'Explore Sri Lanka',
         // headerStyle: {
         //   backgroundColor: /* '#f4511e' */ Platform.OS === 'android' ? 'yellow' : '#d303fc',
         // position: 'absolute', backgroundColor: 'transparent', zIndex: 100, /* top: 0, left: 0, right: 0 */
@@ -17,7 +17,21 @@ class landingpageScreen extends Component  {
         right: 0},
         headerTintColor: 'white',
         headerTitleStyle: { 
+            flex: 1, textAlign: 'center'
         },
+        // headerBackground: (
+        //     <Image
+        //       style={StyleSheet.absoluteFill}
+        //       source={require ('../assets/imgs/pngfind.com-asia-png-2659486.png')}
+        //     />
+        //   ),
+        headerTitle: (props) => ( // App Logo
+            <Image
+              style={{ width: 190, height: 45 }}
+              source={require('../assets/imgs/pngfind.com-asia-png-2659486.png')}
+              resizeMode='contain'
+            />
+          ),
     
     }
 
