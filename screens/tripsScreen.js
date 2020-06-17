@@ -361,7 +361,8 @@ const styles = StyleSheet.create({
         // backgroundColor: 'rgba(252, 186, 3,0.7)'
         // backgroundColor: 'rgba(134, 245, 44, 0.1)'
         // backgroundColor: 'rgba(152, 235, 52, 0.8)'
-        backgroundColor: 'rgba(240, 135, 0,10)'
+        backgroundColor: 'rgba(240, 135, 0,10)',
+        // backgroundColor: '#e657a3'
     },
     text: {
         marginLeft: '3%',

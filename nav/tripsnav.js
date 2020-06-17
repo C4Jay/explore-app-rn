@@ -25,6 +25,7 @@ const Tripsnav = createStackNavigator({
           },
           headerTintColor: 'white',
           headerTitleStyle: { 
+             fontFamily: 'sans-serif-light'
           },
           headerTitleAlign: 'center'
          

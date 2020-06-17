@@ -55,5 +55,9 @@
     "babel-preset-expo": "~8.1.0",
     "@babel/core": "^7.8.6"
   },
+  "splash": {
+    "image": "../assets/imgs/photo-1558871625-3c478b58c613.jpg",
+    "resizeMode": "cover"
+  },
   "private": true
 }

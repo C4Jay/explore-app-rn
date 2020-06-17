@@ -70,7 +70,7 @@ class SingletripScreen extends Component {
             
        
        <View style={styles.trip}>
-                    <Text style={{fontSize: 26}}>{this.props.navigation.getParam('trip')}</Text>
+                    <Text style={{fontSize: 26, fontFamily: 'sans-serif-light'}}>{this.props.navigation.getParam('trip')}</Text>
                 </View>
                 <LinearGradient
         //   colors={['#11998e', '#38ef7d']}
@@ -79,17 +79,17 @@ class SingletripScreen extends Component {
          
         >
                 <View style={styles.location}>
-                    <Text style={{color: 'darkgrey'}}>
+                    <Text style={{color: 'darkgrey', fontFamily: 'sans-serif-condensed'}}>
                         {this.props.navigation.getParam('region')}
                     </Text>
-                    <Text style={{color: 'darkgrey'}}>
+                    <Text style={{color: 'darkgrey', fontFamily: 'sans-serif-condensed'}}>
                         | {this.props.navigation.getParam('district')}
                     </Text>
                 </View>
                 <View style={styles.description}>
-                    <Text style={{color: 'white'}}>{this.props.navigation.getParam('description')}</Text>
+                    <Text style={{color: 'white', fontFamily: 'sans-serif-light',}}>{this.props.navigation.getParam('description')}</Text>
                 </View>
-                <Button mode="contained" color="#bbdef0" style={{width: '100%'}} onPress={() => this.props.navigation.navigate('Journey', {trip: this.props.navigation.getParam('trip'), keyid: this.props.navigation.getParam('keyid'), lat: this.props.navigation.getParam('lat'), lng: this.props.navigation.getParam('lng')})}>get there</Button>
+                <Button mode="contained" color="#bbdef0" style={{width: '100%', fontFamily: 'sans-serif-light'}} onPress={() => this.props.navigation.navigate('Journey', {trip: this.props.navigation.getParam('trip'), keyid: this.props.navigation.getParam('keyid'), lat: this.props.navigation.getParam('lat'), lng: this.props.navigation.getParam('lng')})}>get there</Button>
                 </LinearGradient>
             </View>
             
@@ -111,7 +111,8 @@ SingletripScreen['navigationOptions'] = screenProps => ({
     left: 0,
     right: 0},
     headerTintColor: 'white',
-    headerTitleStyle: { 
+    headerTitleStyle: {
+         fontFamily: 'sans-serif-light' 
     },
     headerRight: () => {return ( <HeaderButtons HeaderButtonComponent={Custombutton}>
         <Item 
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
         height: 400,
         width: '100%',
         marginBottom: 3,
-        marginTop: 3
+        // marginTop: 3
     },
     location: {
         flexDirection: 'row',
@@ -160,7 +161,8 @@ const styles = StyleSheet.create({
         marginRight: 3,
         marginBottom: 30,
         color: 'white',
-        backgroundColor:'#efca08'
+        backgroundColor:'#efca08',
+        fontFamily: 'sans-serif-light',
     },
     trip: {
         alignItems: 'center',

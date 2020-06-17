@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import getDirections from 'react-native-google-maps-directions'
 import { View, Button, StyleSheet } from 'react-native';
+import MapScreen from '../component/mapview';
 
 var lat;
 var lng;
@@ -111,6 +112,10 @@ export default class Journeyscreen extends Component {
   render() {
     return (
       <View style={styles.main}>
+      <View style={styles.map}>
+      <MapScreen lat={this.props.navigation.getParam('lat')} lng={this.props.navigation.getParam('lng')}>
+      </MapScreen>
+      </View>
      
         <Button onPress={this.handleGetDirections} title="Get Directions" />
       </View>
@@ -122,5 +127,8 @@ export default class Journeyscreen extends Component {
 const styles = StyleSheet.create({
     main: {
         flex: 1
+    },
+    map: {
+      flex: 1
     }
 })

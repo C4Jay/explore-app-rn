@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         textAlign: 'center',
         color: 'white',
-        backgroundColor: 'rgba(255,255,255,0.5)'
+        backgroundColor: 'rgba(255,255,255,0.5)', fontFamily: 'sans-serif-light'
     }
 })
 

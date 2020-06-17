@@ -339,7 +339,7 @@ getMiles (lat, lng) {
             
               <View>
                   {this.state.trips.map(item => {
-                      return <View key={item.triptrip}> 
+                      return <View style={styles.main} key={item.triptrip}> 
                       <TouchableOpacity onPress={() => {
                           this.props.navigation.navigate('Singletrip', {
                             user: this.props.navigation.getParam('user'), keyid: item.tripid,trip: item.triptrip, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,
@@ -362,16 +362,16 @@ getMiles (lat, lng) {
                       <View style={styles.distance}>
                           <Image style={{height: 30, width: 30}} source={require ('../assets/imgs/km.png')}></Image>
                           </View>{item.tripdistrict == 'Badulla' ?
-                    <Text style={styles.distance1}>{getDistance(
+                    <Text style={styles.distance1}>{Math.round(getDistance(
 { latitude: item.triplat , longitude: item.triplng },
 // { latitude: 6.9565151, longitude: 79.9116888 }
 { latitude: this.state.lat, longitude: this.state.lng }
-) / 1000 + 60 + 10}  km
-                          </Text>  : <Text style={styles.distance1}>{getDistance(
+) / 1000 + 60 + 10)}  km
+                          </Text>  : <Text style={styles.distance1}>{Math.round(getDistance(
 { latitude: item.triplat , longitude: item.triplng },
 // { latitude: 6.9565151, longitude: 79.9116888 }
 { latitude: this.state.lat, longitude: this.state.lng }
-) / 1000 + 10}  km</Text> }
+) / 1000 + 10)}  km</Text> }
                       {/* <Text style={styles.distance1}>{toString(this.getMiles(item.triplat,item.triplng))}</Text> */}
                      
                       {/* <Text style={styles.distance1}>{distances[item.tripnumber]} kms</Text> */}
@@ -458,6 +458,7 @@ const styles = StyleSheet.create({
   tile1: {
     // height: 35,
     backgroundColor: '#aeedf5',
+    // backgroundColor: 'white',
     width: 218,
     marginTop: 1,
     marginBottom: 1,
@@ -471,8 +472,11 @@ const styles = StyleSheet.create({
   },
   tile2: {
     // height: 35,
+
     backgroundColor: '#f2cee7',
+    
     // backgroundColor: '#42cbf5',
+    // backgroundColor: 'white',
     width: 218,
     marginTop: 1,
     marginBottom: 1,
@@ -487,51 +491,81 @@ const styles = StyleSheet.create({
     img: {
         height: 400,
         width: '100%',
-        borderRadius: 10,
+        marginBottom: 20
+        // borderRadius: 10,
         // marginLeft: 3,
         // marginRight: 6
     },
     tile: {
         // flexDirection: "row",
         // height: 150,
-        borderBottomWidth: 1,
+        borderWidth: 1,
         borderStyle: 'solid',
-        borderRadius: 6,
+        borderColor: 'rgba(0,0,0,0.2)',
+        borderRadius: 4,
+        marginBottom: 4,
+        padding: 10,
+
+        // borderRadius: 6,
         // backgroundColor: 'rgba(252, 186, 3,0.7)'
         // backgroundColor: 'rgba(134, 245, 44, 0.1)'
         // backgroundColor: 'rgba(152, 235, 52, 0.8)'
-        backgroundColor: 'rgba(240, 135, 0,10)'
+
+        // backgroundColor: 'rgba(240, 135, 0,10)',
+
+        backgroundColor: 'white',
             // backgroundColor: '#42cbf5',
             // backgroundColor: '#2bcbfc'
+            // backgroundColor: '#eb59a6'
+           /*  shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 8,
+            },
+            shadowOpacity: 0.44,
+            shadowRadius: 10.32,
+            
+            elevation: 16, */
+            
     },
 
     text: {
         marginLeft: '3%',
-        fontFamily: 'Roboto',
+        // fontFamily: 'Roboto',
+        fontFamily: 'sans-serif-condensed',
         fontSize: 16
     },
     text1: {
         marginLeft: '3%',
         fontSize: 14,
-        color: 'white'
+        color: 'grey',
+        fontFamily: 'sans-serif-condensed',
     },
     text2 : {
         marginLeft: '3%',
         fontSize: 14,
-        color: 'white'
+        color: 'grey',
+        fontFamily: 'sans-serif-condensed',
     },
     distance: {
         position: 'absolute',
         marginTop: 3,
     
         marginLeft: 260,
+        fontFamily: 'sans-serif-condensed',
      
     },
     distance1: {
         position: 'absolute',
         marginTop: 3,
-        marginLeft: 300
+        marginLeft: 300,
+        fontFamily: 'sans-serif-condensed',
      
+    },
+
+    main: {
+        
+        padding: 6,
     }
 
 })

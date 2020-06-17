@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "trip-project",
-    "slug": "trip-project",
+    "name": "Visit Sri Lanka",
+    "slug": "visit-sri-lanka",
     "platforms": [
       "ios",
       "android",
@@ -12,7 +12,7 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
