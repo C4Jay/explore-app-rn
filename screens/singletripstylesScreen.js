@@ -22,6 +22,8 @@ class SingletripstyleScreen extends Component {
             var counter = 0
             for(let key in obj) {
 
+                if(obj[key].tripdistrict == this.props.navigation.getParam('district') && obj[key].triptrip != this.props.navigation.getParam('trip')) {
+
             
               hotel.push({
                   tripid: key,
@@ -75,7 +77,7 @@ class SingletripstyleScreen extends Component {
 
            
         
-        
+        }
         
     })
     .catch (err => {
@@ -110,7 +112,7 @@ class SingletripstyleScreen extends Component {
 
        {/* <TouchableOpacity style={styles.BookTicketBtn}> */}
        <View style={styles.BookTicketBtn}>
-           <TouchableOpacity>
+           <TouchableOpacity onPress={() => this.props.navigation.navigate('Journey', {trip: this.props.navigation.getParam('trip')})}>
            <Text style={styles.bookTicketText}>Get There</Text>
            </TouchableOpacity>
            </View>
@@ -127,20 +129,21 @@ class SingletripstyleScreen extends Component {
                        Other places in the area
                        </Text>
                        <FlatList
-                       horizontal={true}
-                       data={this.state.trips}
-                       renderItem={({item }) => {
-                           return (
-                               <View key={item.triptrip} style={{flex: 1}}>
-                                   <View>
-                                       <Image source={{uri : item.tripimg}} style={{width: 150, height: 250, marginHorizontal: 10, borderRadius: 10}}></Image>
-                                       {/* <Feather name='map-pin' size={16} color='white' style={{marginHorizontal: 14, marginTop: 4, position: 'absolute',left: 10}}></Feather> */}
-                                   </View>
-                               </View>
-                           )
-                       }}>
-
-                       </FlatList>
+                            horizontal={true}
+                            data={this.state.trips}
+                            renderItem={({item}) => {
+                                return (
+                                    <View key={item.triptrip} style={{paddingVertical: 20, paddingLeft: 10}}>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Singletripstyle', {trip: item.triptrip, keyid: item.tripid, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,})}>
+                                            <Image source={{uri: item.tripimg}} style={{width: 150, marginRight: 8, height: 250, borderRadius: 10}}/>
+                                        <View style={styles.ImageOverlay}></View>
+                                        <Feather name='map-pin' size={16} color='white' style={styles.imageLocationIcon}/>
+                                        
+                                        <Text style={styles.ImageText}>{item.triptrip}</Text></TouchableOpacity>
+                                        </View>
+                                )
+                            }}
+                                />
 
                    </View>
                
@@ -202,6 +205,20 @@ const styles = StyleSheet.create({
     bookTicketText: {
         color: 'white',
         fontSize: 14
+    },
+    imageLocationIcon: {
+        position: 'absolute',
+        marginTop: 4,
+        left: 10,
+        bottom: 10
+    },
+    ImageText: {
+        position: 'absolute',
+        color: 'white',
+        marginTop: 4,
+        fontSize: 14,
+        left: 30,
+        bottom: 10
     }
 
 })
