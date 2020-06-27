@@ -466,7 +466,7 @@ class TripsnewstylesScreen extends Component {
                                     <Feather name='map-pin'
                                     color='white'
                                     size={22}
-                                    style={{marginLeft: 10, position: 'absolute',bottom: 60}}></Feather>
+                                    style={{marginLeft: 10, position: 'absolute',bottom: 65}}></Feather>
                                     <Text style={{fontSize: 22, color: 'white',marginLeft: 34, marginHorizontal: 10, marginBottom: 10}}>{item.triptrip}</Text>
                                     <View>
                                     <Text style={{fontSize: 14, color: 'white', marginBottom: 4, opacity: 0.9, marginLeft: 16}}>

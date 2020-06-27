@@ -9,6 +9,17 @@ class SingletripstyleScreen extends Component {
         trips: []
     }
 
+    handleFavs() {
+        axios.post('https://map-app-rn.firebaseio.com/Users.json', {favourites: this.props.navigation.getParam('trip'), user: 'user1' /* 'hey' */,
+            trip: this.props.navigation.getParam('trip'), region: this.props.navigation.getParam('region'), district: this.props.navigation.getParam('district'), img: this.props.navigation.getParam('img'), img1: this.props.navigation.getParam('img1'), img2: this.props.navigation.getParam('img2'), img3: this.props.navigation.getParam('img3'), description: this.props.navigation.getParam('description'), lat:this.props.navigation.getParam('lat'), lng: this.props.navigation.getParam('lng'),
+    })
+    .then(response => {
+        console.log(response.data)
+    }).catch(er => {
+        console.log(er)
+    })
+}
+
     componentDidMount() {
 
 
@@ -89,6 +100,8 @@ class SingletripstyleScreen extends Component {
 }
 
 
+
+
     
     render () {
         return (
@@ -103,7 +116,7 @@ class SingletripstyleScreen extends Component {
             <Text style={styles.Placename}>Located in {this.props.navigation.getParam('district')} district</Text>
             
  <View style={{position: 'absolute', right: 20, top: 40, backgroundColor: '#ff6200', padding: 10, borderRadius: 40, elevation: 5}}>         
- <TouchableOpacity>
+ <TouchableOpacity onPress={() => {this.handleFavs()}}>
 <Feather name='heart' size={22} color='white' />
 </TouchableOpacity>         
 </View>

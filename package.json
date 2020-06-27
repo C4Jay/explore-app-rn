@@ -23,7 +23,7 @@
     "expo-permissions": "~8.1.0",
     "expo-sqlite": "~8.1.0",
     "expo-vector-icons": "^10.0.1",
-    "firebase": "7.9.0",
+    "firebase": "^7.15.5",
     "geolib": "^3.2.1",
     "google-distance": "^1.0.1",
     "react": "~16.9.0",

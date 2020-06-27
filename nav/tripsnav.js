@@ -9,6 +9,7 @@ import ChatScreen from '../screens/tripnewScreen';
 import FavsScreen from '../screens/favoritesScreen';
 import TripsnewstylesScreen from '../screens/tripnewstylesScreen';
 import SingletripstyleScreen from '../screens/singletripstylesScreen';
+import SigninScreen from '../screens/signinScreen';
 
 
 
@@ -21,7 +22,8 @@ const Tripsnav = createStackNavigator({
     Tripsnew: ChatScreen,
     Favs: FavsScreen,
     Tripsstyle: TripsnewstylesScreen,
-    Singletripstyle: SingletripstyleScreen
+    Singletripstyle: SingletripstyleScreen,
+    Signin: SigninScreen
 },{
     defaultNavigationOptions : {
         headerStyle: {
