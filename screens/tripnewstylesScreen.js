@@ -9,6 +9,7 @@ import axios from 'axios';
 import * as Permissions from 'expo-permissions';
 import * as Maplocation from 'expo-location';
 
+import { AsyncStorage } from 'react-native';
 import { getDistance } from 'geolib';
 class TripsnewstylesScreen extends Component {
 
@@ -115,7 +116,8 @@ class TripsnewstylesScreen extends Component {
         trip: '',
         lat: '',
         lng: '',
-        tripsfavs: []
+        tripsfavs: [],
+        user: ''
     }
 
     handleChange = (trip) => {
@@ -127,7 +129,15 @@ class TripsnewstylesScreen extends Component {
     async componentDidMount() {
 
 
+
+
         await this.locationHandler()
+
+
+        let user = await AsyncStorage.getItem('user');
+        this.setState({
+            user: user.substring(0,5)
+        })
         
         if(this.props.navigation.getParam('district') ) {
             axios.get('https://map-app-rn.firebaseio.com/Trips.json')
@@ -389,7 +399,7 @@ class TripsnewstylesScreen extends Component {
                     </ImageBackground>
                     <View style={styles.DarkOverlay}>
                     <View style={styles.searchContainer}>
-                    <Text style={styles.userGreet}>Hey,</Text>
+                    <Text style={styles.userGreet}>Hey, {this.state.user}</Text>
                     <Text style={styles.userText}>Where do you like to go?</Text>
                     </View>
 

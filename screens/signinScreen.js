@@ -6,7 +6,7 @@ import {Feather, MaterialCommunityIcons} from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import img from '../assets/imgs/flame-page-under-construction.png';
 import * as firebase from 'firebase';
-
+import { AsyncStorage } from 'react-native';
 
 /* var firebaseConfig = {
     apiKey: "AIzaSyAiI5UcfWWLo-t5L0K4GHYjZUQgmm5Xfu0",
@@ -81,16 +81,18 @@ class SigninScreen extends Component {
 
         firebase
           .auth()
-          .createUserWithEmailAndPassword(this.state.mail, this.state.password)
+          .signInWithEmailAndPassword(this.state.mail, this.state.password)
           .then(() => this.props.navigation.navigate('Tripsstyle'))
           .catch(err => console.log(err))
+        
+          AsyncStorage.setItem('user', this.state.mail);  
     }
 
     signin () {
         console.log(this.state.mail, this.state.password)
         firebase
           .auth()
-          .createUserWithEmailAndPassword(this.state.mail, this.state.password)
+          .signInWithEmailAndPassword(this.state.mail, this.state.password)
           .then(() => this.props.navigation.navigate('Tripsstyle'))
           .catch(err => console.log(err))
     }
