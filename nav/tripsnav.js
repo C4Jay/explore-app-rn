@@ -7,6 +7,8 @@ import Journeyscreen from '../screens/journeyScreen';
 import regionScreen from '../screens/regionsScreen';
 import ChatScreen from '../screens/tripnewScreen';
 import FavsScreen from '../screens/favoritesScreen';
+import TripsnewstylesScreen from '../screens/tripnewstylesScreen';
+import SingletripstyleScreen from '../screens/singletripstylesScreen';
 
 
 
@@ -17,7 +19,9 @@ const Tripsnav = createStackNavigator({
     Journey: Journeyscreen,
     Regions: regionScreen,
     Tripsnew: ChatScreen,
-    Favs: FavsScreen
+    Favs: FavsScreen,
+    Tripsstyle: TripsnewstylesScreen,
+    Singletripstyle: SingletripstyleScreen
 },{
     defaultNavigationOptions : {
         headerStyle: {

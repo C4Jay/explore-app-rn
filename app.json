@@ -26,7 +26,8 @@
     },
     "android": {
       "package": "com.tripproject.tripproject",
-      "versionCode": 1
+      "versionCode": 1 
     }
+   
   }
 }

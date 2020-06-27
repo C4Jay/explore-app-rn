@@ -112,10 +112,10 @@ export default class Journeyscreen extends Component {
   render() {
     return (
       <View style={styles.main}>
-      <View style={styles.map}>
+      {/* <View style={styles.map}>
       <MapScreen lat={this.props.navigation.getParam('lat')} lng={this.props.navigation.getParam('lng')}>
       </MapScreen>
-      </View>
+      </View> */}
      
         <Button onPress={this.handleGetDirections} title="Get Directions" />
       </View>

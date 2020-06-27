@@ -54,7 +54,7 @@ class landingpageScreen extends Component  {
         </View> */}
 
 
-<TouchableOpacity onPress={() => {this.props.navigation.navigate('Tripsnew', {user: 'user1'})}}>
+<TouchableOpacity onPress={() => {this.props.navigation.navigate('Tripsstyle', {user: 'user1'})}}>
     <View style={{alignItems: 'center', marginTop: '136%'}}>
         <View style={{height: 50, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
             <Text style={{textAlign: 'center'}}>Explore all</Text>

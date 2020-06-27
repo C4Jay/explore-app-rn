@@ -12,4 +12,4 @@ web-report/
 keys/**/*
 # macOS
 .DS_Store
-app.json
+
