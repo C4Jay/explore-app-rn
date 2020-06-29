@@ -320,7 +320,7 @@ class TripsnewstylesScreen extends Component {
         const obj = response.data
         for(let key in obj) {
           
-          if(obj[key].user == AsyncStorage.getItem('user') ) {
+          if(obj[key].user == this.state.user ) {
            
           hotel.push({
 
@@ -432,7 +432,7 @@ class TripsnewstylesScreen extends Component {
                                 return (
                                     <View key={item.triptrip} style={{paddingVertical: 20, paddingLeft: 10}}>
                                         {this.state.trip.toLowerCase().substring(0,4) == item.triptrip.toLowerCase().substring(0,4) || this.state.trip == '' ?
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Singletripstyle', {trip: item.triptrip, keyid: item.tripid, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,})}>
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Singletripstyle', {trip: item.triptrip, user: this.state.user, keyid: item.tripid, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,})}>
                                             <Image source={{uri: item.tripimg}} style={{width: 150, marginRight: 8, height: 250, borderRadius: 10}}/>
                                         <View style={styles.ImageOverlay}></View>
                                         <Feather name='map-pin' size={16} color='white' style={styles.imageLocationIcon}/>
@@ -469,7 +469,7 @@ class TripsnewstylesScreen extends Component {
                             renderItem={({item}) => {
                                 return (
 
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Singletripstyle', {trip: item.triptrip, keyid: item.tripid, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,})}>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('Singletripstyle', {trip: item.triptrip, keyid: item.tripid,user: this.state.user, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,})}>
                             <Image 
                             source={{uri: /* 'https://images.unsplash.com/photo-1580889272861-dc2dbea5468d?ixlib=rb-1.2.1&auto=format&fit=crop&w=758&q=80' */ item.tripimg}}
                             style={{width: '92%', height: 250, borderRadius: 10, alignSelf: 'center', marginBottom: 20}} />

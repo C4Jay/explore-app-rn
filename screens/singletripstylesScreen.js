@@ -12,22 +12,7 @@ class SingletripstyleScreen extends Component {
     }
 
     handleFavs() {
-
-        axios.get('https://map-app-rn.firebaseio.com/Users.json')
-    .then((response) => {
-   
-        const hotel = []
-        const obj = response.data
-        for(let key in obj) {
-          
-          if(obj[key].user == AsyncStorage.getItem('user') && obj[key].triptrip == this.props.navigation.getParam('trip') ) {
-              return 
-          
-        }
-    }}).catch (er => {
-        console.log(er)
-    })
-        axios.post('https://map-app-rn.firebaseio.com/Users.json', {favourites: this.props.navigation.getParam('trip'), user:  AsyncStorage.getItem('user') /* 'hey' */,
+        axios.post('https://map-app-rn.firebaseio.com/Users.json', {favourites: this.props.navigation.getParam('trip'), user: this.props.navigation.getParam('user'), /* 'hey' */
             trip: this.props.navigation.getParam('trip'), region: this.props.navigation.getParam('region'), district: this.props.navigation.getParam('district'), img: this.props.navigation.getParam('img'), img1: this.props.navigation.getParam('img1'), img2: this.props.navigation.getParam('img2'), img3: this.props.navigation.getParam('img3'), description: this.props.navigation.getParam('description'), lat:this.props.navigation.getParam('lat'), lng: this.props.navigation.getParam('lng'),
     })
     .then(response => {
