@@ -3,6 +3,8 @@ import { View, Text, ImageBackground, StyleSheet, Image} from 'react-native';
 import { TouchableOpacity, ScrollView, FlatList } from 'react-native-gesture-handler';
 import axios from 'axios';
 import {Feather} from '@expo/vector-icons';
+
+import { AsyncStorage } from 'react-native';
 class SingletripstyleScreen extends Component {
 
     state = {
@@ -10,7 +12,22 @@ class SingletripstyleScreen extends Component {
     }
 
     handleFavs() {
-        axios.post('https://map-app-rn.firebaseio.com/Users.json', {favourites: this.props.navigation.getParam('trip'), user: 'user1' /* 'hey' */,
+
+        axios.get('https://map-app-rn.firebaseio.com/Users.json')
+    .then((response) => {
+   
+        const hotel = []
+        const obj = response.data
+        for(let key in obj) {
+          
+          if(obj[key].user == AsyncStorage.getItem('user') && obj[key].triptrip == this.props.navigation.getParam('trip') ) {
+              return 
+          
+        }
+    }}).catch (er => {
+        console.log(er)
+    })
+        axios.post('https://map-app-rn.firebaseio.com/Users.json', {favourites: this.props.navigation.getParam('trip'), user:  AsyncStorage.getItem('user') /* 'hey' */,
             trip: this.props.navigation.getParam('trip'), region: this.props.navigation.getParam('region'), district: this.props.navigation.getParam('district'), img: this.props.navigation.getParam('img'), img1: this.props.navigation.getParam('img1'), img2: this.props.navigation.getParam('img2'), img3: this.props.navigation.getParam('img3'), description: this.props.navigation.getParam('description'), lat:this.props.navigation.getParam('lat'), lng: this.props.navigation.getParam('lng'),
     })
     .then(response => {
@@ -125,7 +142,7 @@ class SingletripstyleScreen extends Component {
 
        {/* <TouchableOpacity style={styles.BookTicketBtn}> */}
        <View style={styles.BookTicketBtn}>
-           <TouchableOpacity onPress={() => this.props.navigation.navigate('Journey', {trip: this.props.navigation.getParam('trip')})}>
+           <TouchableOpacity onPress={() => this.props.navigation.navigate('Journey', {trip: this.props.navigation.getParam('trip'), img: this.props.navigation.getParam('img')})}>
            <Text style={styles.bookTicketText}>Get There</Text>
            </TouchableOpacity>
            </View>

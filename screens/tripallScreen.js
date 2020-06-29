@@ -1,78 +1,13 @@
 import React, { Component } from 'react';
 import { View, ImageBackground, Text, StyleSheet, FlatList, Alert, Image} from 'react-native';
 import { white } from 'color-name';
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import {Feather, MaterialCommunityIcons} from '@expo/vector-icons';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 
-import * as Permissions from 'expo-permissions';
-import * as Maplocation from 'expo-location';
-
 import { AsyncStorage } from 'react-native';
-import { getDistance } from 'geolib';
-class TripsnewstylesScreen extends Component {
-
-    Permissionverify = async () => {
-        const result = await Permissions.askAsync(Permissions.LOCATION)
-        if(result.status != 'granted'){
-            Alert.alert('permission need','need permissions to proceed',
-            [{text: 'OK'}]
-            )
-            return false
-        }
-        return true
-    }
-    
-    
-    locationHandler = async () => {
-        const haspermission = await this.Permissionverify()
-        if(!haspermission) {
-            return
-        }
-
-        // setisfetching(true)
-
-        try {
-            const location = await Maplocation.getCurrentPositionAsync({timeout: 5000})
-            console.log(location)
-            this.setState({
-                lat: location.coords.latitude,
-                lng: location.coords.longitude
-            }, () => {Alert.alert(
-                /* 'Couldn`t locate you',
-                'Please try later or pick a location on the map',
-                [{text: 'OK'}] */
-                'Please note',
-                'distances shown in this list is an approximate value based on your current location and is not 100% correct 😊, For directions go to each trip. \nThank You 😇',
-                [{text: 'OK'}]
-            )})
-          /*   props.onpickedlocation({
-                lat: location.coords.latitude,
-                lng: location.coords.longitude
-            })
-
- */
-        } catch (err) {
-            Alert.alert(
-                /* 'Couldn`t locate you',
-                'Please try later or pick a location on the map',
-                [{text: 'OK'}] */
-                'Something happened',
-                'We couldn\'t locate you please go back and come again',
-                [{text: 'OK'}]
-            )
-        }
-        // setisfetching(false)
-        this.setState({
-            donefetching: true
-        })
-        // this.getMiles(6.8046796,80.7669454)
-
-    }
-
-
-
+class TripallScreen extends Component {
 
     static navigationOptions = {
         // title: 'Explore Sri Lanka',
@@ -87,7 +22,7 @@ class TripsnewstylesScreen extends Component {
         left: 0,
         right: 0},
         headerTintColor: 'white',
-        headerTitle: 'Visit Sri Lanka',
+        headerTitle: 'Sri Lanka',
         
             headerTitleStyle: { 
                 fontFamily: 'sans-serif-light'
@@ -113,32 +48,10 @@ class TripsnewstylesScreen extends Component {
 
     state = {
         trips: [],
-        trip: '',
-        lat: '',
-        lng: '',
-        tripsfavs: [],
-        user: ''
+        tripsfavs: []
     }
 
-    handleChange = (trip) => {
-        this.setState({
-            trip: trip
-        })
-    }
-
-    async componentDidMount() {
-
-
-
-
-        await this.locationHandler()
-
-
-        let user = await AsyncStorage.getItem('user');
-        this.setState({
-            user: user.substr(0, user.indexOf('@'))
-        })
-        
+    async componentDidMount () {
         if(this.props.navigation.getParam('district') ) {
             axios.get('https://map-app-rn.firebaseio.com/Trips.json')
         .then((response) => {
@@ -320,7 +233,7 @@ class TripsnewstylesScreen extends Component {
         const obj = response.data
         for(let key in obj) {
           
-          if(obj[key].user == AsyncStorage.getItem('user') ) {
+          if(obj[key].user == 'user1' ) {
            
           hotel.push({
 
@@ -379,100 +292,20 @@ class TripsnewstylesScreen extends Component {
 }
 
         
+
     }
-
-    
-
-
-
-
-
     render () {
         return (
-            <View style={{flex: 1}}>
-                <View>
-                    <ImageBackground
-                    source={{uri: 'https://images.unsplash.com/photo-1519566335946-e6f65f0f4fdf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'}}
-                    style={{width: '100%', height: 270}}
-                    imageStyle={{borderBottomRightRadius: 40}}>
-
-                    </ImageBackground>
-                    <View style={styles.DarkOverlay}>
-                    <View style={styles.searchContainer}>
-                    <Text style={styles.userGreet}>Hey, {this.state.user}</Text>
-                    <Text style={styles.userText}>Where do you like to go?</Text>
-                    </View>
-
-                    <TextInput
-                    style={styles.searchBox}
-                    placeholder="Find destination"
-                    placeholderTextColor='#666'
-                    value={this.state.trip}
-                    onChangeText={this.handleChange}>
-
-                    </TextInput>
-                    <Feather name='search' size={22} color='#666' style={{position: 'absolute', top: 220, left: 300, right: 60}} />
-                    {/* <Feather name='menu' size={22} color='#fff' style={{position: 'absolute', top: 220, left: 300, right: 60}} /> */}
-                    {/* <Feather name='bell' size={22} color='#666' style={{position: 'absolute', top: 240, left: 300, right: 60}} /> */}
-                   
-                    </View>
-                    </View>
-
-                    <ScrollView>
-                        <View style={{padding: 16, display: 'flex',flexDirection: 'row', justifyContent:'space-between', float: 'left'}}>
-                            <Text style={{fontSize: 22, fontWeight: 'bold'}}>Trending destinations</Text>
-                            <View><TouchableOpacity onPress={() => {this.props.navigation.navigate('Tripall')}}><Text style={{fontSize: 14, fontWeight: 'bold', color: '#ff2600'}}>view all</Text></TouchableOpacity></View>
-                            {/* <Button size="small" color="#ff2600">view all</Button> */}
-                        </View>
-                        <View>
-                            <FlatList
-                            horizontal={true}
+            <ScrollView style={{marginTop: 20}}>
+                <FlatList
                             data={this.state.trips}
-                            renderItem={({item}) => {
-                                return (
-                                    <View key={item.triptrip} style={{paddingVertical: 20, paddingLeft: 10}}>
-                                        {this.state.trip.toLowerCase().substring(0,4) == item.triptrip.toLowerCase().substring(0,4) || this.state.trip == '' ?
-                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Singletripstyle', {trip: item.triptrip, keyid: item.tripid, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,})}>
-                                            <Image source={{uri: item.tripimg}} style={{width: 150, marginRight: 8, height: 250, borderRadius: 10}}/>
-                                        <View style={styles.ImageOverlay}></View>
-                                        <Feather name='map-pin' size={16} color='white' style={styles.imageLocationIcon}/>
-                                        <MaterialCommunityIcons name='map-marker-distance' size={16} color='white' style={styles.imageLocationIcon1}/>
-                                        
-                                        <Text style={styles.ImageText}>{item.triptrip}</Text>
-                                        {item.tripdistrict == 'Badulla' ?
-                    <Text style={styles.distance1}>{Math.round(getDistance(
-{ latitude: item.triplat , longitude: item.triplng },
-// { latitude: 6.9565151, longitude: 79.9116888 }
-{ latitude: this.state.lat, longitude: this.state.lng }
-) / 1000 + 60 + 10)}  km
-                          </Text>  : <Text style={styles.distance1}>{Math.round(getDistance(
-{ latitude: item.triplat , longitude: item.triplng },
-// { latitude: 6.9565151, longitude: 79.9116888 }
-{ latitude: this.state.lat, longitude: this.state.lng }
-) / 1000 + 10)}  km</Text> }
-                                        </TouchableOpacity>
-                                        : null }
-                                        </View>
-                                )
-                            }}
-                                />
-                        </View>
-                        
-                        <View style={{paddingBottom: 60}}>
-                            <View style={{padding: 20,  flexDirection: 'row', justifyContent:'space-between', float: 'left'}}>
-                            <Text style={{fontSize: 22, fontWeight: 'bold', float: 'left'}}>Favorites</Text>
-                            
-                            </View>
-                            
-                            <FlatList
-                            data={this.state.tripsfavs}
                             renderItem={({item}) => {
                                 return (
 
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('Singletripstyle', {trip: item.triptrip, keyid: item.tripid, region: item.tripregion, district: item.tripdistrict, img: item.tripimg, img1: item.tripimg1, img2: item.tripimg2, img3: item.tripimg3, description: item.tripdescription, lat:item.triplat, lng: item.triplng,})}>
                             <Image 
                             source={{uri: /* 'https://images.unsplash.com/photo-1580889272861-dc2dbea5468d?ixlib=rb-1.2.1&auto=format&fit=crop&w=758&q=80' */ item.tripimg}}
-                            style={{width: '92%', height: 250, borderRadius: 10, alignSelf: 'center', marginBottom: 20}} />
+                            style={{width: '92%', height: 250, borderRadius: 10, alignSelf: 'center', marginBottom: 15, marginTop: 10}} />
                             <View style={{position: 'absolute', bottom: 0, padding: 16}}>
                                 <View style={{flexDirection: 'column' ,padding:10}}>
                                     <Feather name='map-pin'
@@ -490,83 +323,9 @@ class TripsnewstylesScreen extends Component {
                             </View>
                             </TouchableOpacity>
                                 )}}/>
-                        </View>
-
-                    </ScrollView>
-                    </View>
+            </ScrollView>
         )
     }
 }
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    DarkOverlay: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        left: 0,
-        height: 270,
-        backgroundColor: 'rgba(0,0,0,0.2)',
-        borderBottomRightRadius: 40    
-    },
-    searchContainer: {
-        paddingTop: 100,
-        padding: 16
-    },
-    userGreet: {
-        fontSize: 38,
-        fontWeight: 'bold',
-        color: 'white'
-    },
-    userText: {
-        fontSize: 16,
-        // fontWeight: 'bold',
-        color: 'white'
-    },
-    searchBox : {
-        marginTop: 16,
-        backgroundColor: 'white',
-        paddingLeft: 24,
-        padding: 12,
-        borderTopRightRadius: 40,
-        borderBottomRightRadius: 40,
-        width: '90%',
-        height: 30
-    },
-    imageLocationIcon: {
-        position: 'absolute',
-        marginTop: 4,
-        left: 10,
-        bottom: 10
-    },
-    imageLocationIcon1: {
-        position: 'absolute',
-        marginTop: 4,
-        left: 10,
-        bottom: 29
-    },
-    ImageText: {
-        position: 'absolute',
-        color: 'white',
-        marginTop: 4,
-        fontSize: 14,
-        left: 30,
-        bottom: 10
-    },
-    distance1: {
-        position: 'absolute',
-        color: 'white',
-        marginTop: 4,
-        fontSize: 14,
-        left: 30,
-        bottom: 29
-
-    }
-})
-export default TripsnewstylesScreen
+export default TripallScreen;

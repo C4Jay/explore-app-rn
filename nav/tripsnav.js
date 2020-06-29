@@ -10,6 +10,8 @@ import FavsScreen from '../screens/favoritesScreen';
 import TripsnewstylesScreen from '../screens/tripnewstylesScreen';
 import SingletripstyleScreen from '../screens/singletripstylesScreen';
 import SigninScreen from '../screens/signinScreen';
+import RegisterScreen from '../screens/registerScreen';
+import TripallScreen from '../screens/tripallScreen';
 
 
 
@@ -23,7 +25,9 @@ const Tripsnav = createStackNavigator({
     Favs: FavsScreen,
     Tripsstyle: TripsnewstylesScreen,
     Singletripstyle: SingletripstyleScreen,
-    Signin: SigninScreen
+    Signin: SigninScreen,
+    Signup: RegisterScreen,
+    Tripall: TripallScreen
 },{
     defaultNavigationOptions : {
         headerStyle: {

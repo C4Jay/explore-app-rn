@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import { View, ImageBackground, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import {Icon} from 'react-native-vector-icons';
-
+import * as firebase from 'firebase';
+import { AsyncStorage } from 'react-native';
+import moment from 'moment';
+import {Feather, MaterialCommunityIcons} from '@expo/vector-icons';
 class landingpageScreen extends Component  {
+
+    state = {
+        user: '',
+        time: ''
+    }
+
     static navigationOptions = {
         // title: 'Explore Sri Lanka',
         // headerStyle: {
@@ -35,6 +44,39 @@ class landingpageScreen extends Component  {
     
     }
 
+    logout () {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => console.log('logging out'))
+          .catch(err => console.log(err))
+        
+          AsyncStorage.removeItem('user');  
+ 
+    }
+
+    displayTime(){
+        //let now = moment();
+        //let location = now.clone().tz(this.props.timezone);
+        this.setState({
+            time: moment().format('MMMM Do YYYY, h:mm:ss a').toLocaleString()
+        });
+        //return location.toLocaleString();
+    }
+
+
+
+    async componentDidMount () {
+        let user = await AsyncStorage.getItem('user');
+        this.setState({
+            user: user
+        })
+
+       this.interval = setInterval(() => {
+            this.displayTime();
+        }, 1000)
+    }
+
     
 
     render () {
@@ -52,15 +94,30 @@ class landingpageScreen extends Component  {
             </View>
             </View>
         </View> */}
+<View style={{textAlign: 'center', top: 400, display: 'flex', justifyContent: 'center'}}>
+    <Text style={{textAlign: 'justify', lineHeight: 26,textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 20}}>{this.state.time}</Text>
+    
+</View>
 
-{<TouchableOpacity onPress={() => {this.props.navigation.navigate('Signin', {user: 'user1'})}}>
-    <View style={{alignItems: 'center', marginTop: '136%'}}>
+{/* // {!this.state.user ?  */}
+<TouchableOpacity onPress={() => {this.props.navigation.navigate('Signin', {user: 'user1'})}}>
+    <View style={{alignItems: 'center', marginTop: '134%', elevation: 5}}>
+        <View style={{height: 50, width: 150, textAlign:'center', backgroundColor: '#ff6200', alignItems: 'center',elevation: 10, justifyContent:'center', borderRadius: 25}}>
+            <Text style={{textAlign: 'center', color: 'white', fontWeight: 'bold'}}>BEGIN</Text> 
+        </View>
+
+    </View>        
+</TouchableOpacity> 
+{/* : null } */}
+
+
+{/* <TouchableOpacity onPress={this.logout}>
+    <View style={{alignItems: 'center', marginTop: '100%'}}>
         <View style={{height: 50, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
-            <Text style={{textAlign: 'center'}}>Sign in</Text>
+            <Text style={{textAlign: 'center'}}>Sign Out</Text>
         </View>
     </View>        
-</TouchableOpacity>}
-
+</TouchableOpacity>
 
 <TouchableOpacity onPress={() => {this.props.navigation.navigate('Tripsstyle', {user: 'user1'})}}>
     <View style={{alignItems: 'center', marginTop: 10}}>
@@ -82,12 +139,12 @@ class landingpageScreen extends Component  {
 
 <TouchableOpacity onPress={() => {this.props.navigation.navigate('Favs', {user: 'user1'})}}>
     <View style={{alignItems: 'center', marginTop: 10}}>
-        <View style={{/* flexDirection: 'row', */ height: 80, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
+        <View style={{height: 80, width: 150, textAlign:'center', backgroundColor: 'rgba(255,255,255, 0.5)', alignItems: 'center', justifyContent:'center', borderRadius: 6}}>
             <Text style={{textAlign: 'center'}}>Favorites</Text>
             <Image style={{height: 40, width: 35}} source={require('../assets/icons/icon.png')}></Image>
         </View>
     </View>
-</TouchableOpacity>
+</TouchableOpacity> */}
     
 </ImageBackground>
     

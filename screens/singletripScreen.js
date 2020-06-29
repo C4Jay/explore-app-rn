@@ -11,6 +11,8 @@ import { TouchableOpacity, PinchGestureHandler } from 'react-native-gesture-hand
 import Animated from 'react-native-reanimated';
 import axios from '../axios-list';
 
+import { AsyncStorage } from 'react-native';
+
 var trip = ''
 var take = ''
 class SingletripScreen extends Component {

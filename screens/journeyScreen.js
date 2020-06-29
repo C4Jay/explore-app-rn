@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import getDirections from 'react-native-google-maps-directions'
-import { View, Button, StyleSheet } from 'react-native';
+import { View, Button, StyleSheet, ImageBackground } from 'react-native';
 import MapScreen from '../component/mapview';
 
 var lat;
 var lng;
 
 export default class Journeyscreen extends Component {
+
+  static navigationOptions = {
+    // title: 'Explore Sri Lanka',
+    // headerStyle: {
+    //   backgroundColor: /* '#f4511e' */ Platform.OS === 'android' ? 'yellow' : '#d303fc',
+    // position: 'absolute', backgroundColor: 'transparent', zIndex: 100, /* top: 0, left: 0, right: 0 */
+    // },
+    
+    headerTintColor: 'white',
+    headerTitle: 'Visit Sri Lanka',
+    
+        headerTitleStyle: { 
+            fontFamily: 'sans-serif-light'
+         },
+        }
 
 /*   lat = this.props.navigation.getParam('lat')
   lng = this.props.navigation.getParam('lng')
@@ -116,8 +131,11 @@ export default class Journeyscreen extends Component {
       <MapScreen lat={this.props.navigation.getParam('lat')} lng={this.props.navigation.getParam('lng')}>
       </MapScreen>
       </View> */}
-     
-        <Button onPress={this.handleGetDirections} title="Get Directions" />
+      <ImageBackground style={{width: '100%', height: '100%', objectFit: 'cover'}} source={{uri: this.props.navigation.getParam('img')}}>
+       <View style={{marginTop: 400}}>
+        <Button style={{marginTop: 200}} onPress={this.handleGetDirections} color="#ff6200" title="Begin Journey" />
+       </View> 
+       </ImageBackground>
       </View>
     );
   }

@@ -24,7 +24,7 @@ import { AsyncStorage } from 'react-native';
 
   
 
-class SigninScreen extends Component {
+class RegisterScreen extends Component {
 
 
     state = {
@@ -81,7 +81,7 @@ class SigninScreen extends Component {
 
         firebase
           .auth()
-          .signInWithEmailAndPassword(this.state.mail, this.state.password)
+          .createUserWithEmailAndPassword(this.state.mail, this.state.password)
           .then(() => this.props.navigation.navigate('Tripsstyle'))
           .catch(err => console.log(err))
         
@@ -98,10 +98,10 @@ class SigninScreen extends Component {
     }
 
     componentDidMount () {
-        firebase.auth().onAuthStateChanged(user => {
+        /* firebase.auth().onAuthStateChanged(user => {
             this.props.navigation.navigate(user ? 'Tripsstyle' : 'SignUp')
           })
-
+ */
           
     }
 
@@ -109,7 +109,7 @@ class SigninScreen extends Component {
         return (
             <View>
                 <View style={styles.title}>
-                <Text style={styles.tiletext}>Sign In</Text>
+                <Text style={styles.tiletext}>Sign Up</Text>
                 </View>
                 
                 <View style={{ alignItems: 'center', marginTop: 50}}>
@@ -142,9 +142,7 @@ class SigninScreen extends Component {
            
            </View> */}
 
-           <Button onPress={this.check} mode="contained" style={{color: 'white', borderRadius: 20, marginBottom: 10}} color="#ff6200">Sign In</Button>
-              <View><Text>Haven't registered?</Text>
-              <Button color="#ff6200" onPress={() => {this.props.navigation.navigate('Signup')}}>Sign Up</Button></View>
+           <Button onPress={this.check} mode="contained" style={{color: 'white', borderRadius: 20}} color="#ff6200">Sign Up</Button>
               <View style={{width: '100%', bottom: 0}}> 
                <Image  style={{width: '92%', height: 250, borderRadius: 10, bottom: 0, alignSelf: 'center', marginBottom: 20}}  source={require ('../assets/imgs/flame-page-under-construction.png')}></Image>
                </View>
@@ -205,4 +203,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default SigninScreen;
+export default RegisterScreen;
