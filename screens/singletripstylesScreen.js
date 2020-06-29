@@ -8,7 +8,8 @@ import { AsyncStorage } from 'react-native';
 class SingletripstyleScreen extends Component {
 
     state = {
-        trips: []
+        trips: [],
+        showbtn: true
     }
 
     handleFavs() {
@@ -97,6 +98,23 @@ class SingletripstyleScreen extends Component {
         console.log(err)
     })
 
+
+    axios.get('https://map-app-rn.firebaseio.com/Users.json')
+    .then(response => {
+        const hotel = []
+            const obj = response.data
+            var counter = 0
+            for(let key in obj) {
+                if(obj[key].user == this.props.navigation.getParam('user') && obj[key].trip == this.props.navigation.getParam('trip')){
+                    this.setState({
+                        showbtn: false
+                    })
+                }
+                
+    }}).catch(er => {
+        console.log(er)
+    })
+
     
 
 }
@@ -116,12 +134,12 @@ class SingletripstyleScreen extends Component {
             <Text style={styles.Tagline}>Discover {this.props.navigation.getParam('trip')}</Text>
             
             <Text style={styles.Placename}>Located in {this.props.navigation.getParam('district')} district</Text>
-            
+   {this.state.showbtn ?         
  <View style={{position: 'absolute', right: 20, top: 40, backgroundColor: '#ff6200', padding: 10, borderRadius: 40, elevation: 5}}>         
  <TouchableOpacity onPress={() => {this.handleFavs()}}>
 <Feather name='heart' size={22} color='white' />
 </TouchableOpacity>         
-</View>
+</View> : null }
             
        </ImageBackground>
 
